@@ -1,0 +1,17 @@
+---
+import ShowMoreIcon from "@icons/ShowMoreIcon.astro";
+import ShowMoreButton from "@components/ShowMoreButton.astro";
+import GridResponsive from "@components/GridResponsive.astro";
+import { HomeInitialProducts } from "@react/HomeInitialProducts.jsx";
+---
+
+<div class="w-full mt-12 mb-3 flex justify-end">
+  <ShowMoreButton href="/productos/">
+    <p class="text-[18px]">Ver más</p>
+    <ShowMoreIcon />
+  </ShowMoreButton>
+</div>
+
+<GridResponsive>
+  <HomeInitialProducts client:load />
+</GridResponsive>

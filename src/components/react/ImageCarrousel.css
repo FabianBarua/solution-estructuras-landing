@@ -1,0 +1,28 @@
+.PhotoView__Photo{
+    border-radius:0rem;
+    animation: borderIn .5s ease-in-out;
+}
+
+.PhotoView-Slider__willClose div div img {
+
+    animation: borderOut .45s ease-in-out;
+
+}
+
+@keyframes borderIn {
+    from {
+        border-radius:10rem;
+    }
+    to {
+        border-radius:0rem;
+    }
+}
+
+@keyframes borderOut {
+    from {
+        border-radius:0rem;
+    }
+    to {
+        border-radius:7rem;
+    }
+}

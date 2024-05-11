@@ -1,0 +1,41 @@
+---
+interface Props {
+  id: number;
+  title: string;
+  visibility?: number;
+  image: string;
+}
+import { Image } from "@nextui-org/react";
+
+const { visibility = 70, title, id, image }: Props = Astro.props;
+---
+
+<div
+  class="rounded-[41px] size-56 overflow-hidden relative bg-customOrange-500"
+  style="box-shadow: rgba(0, 0, 0, .4) -15px 15px 30px 10px;"
+>
+  <div
+    style={{
+      backgroundImage: `linear-gradient(to top, var(--tw-gradient-stops)${visibility}%);`,
+    }}
+    class={`w-full  z-20 h-full absolute  from-black/80 `}
+  >
+  </div>
+  {
+    title && id && (
+      <a
+        href="/productos/${id}"
+        class="transition-all z-20 absolute pointer-events-auto  bg-customBlue-500 hover:-translate-y-2 hover:bg-customBlue-400 w-[80%] bottom-4 left-1/2 -translate-x-1/2 px-3 py-2 text-center text-2xl truncate text-white rounded-2xl"
+      >
+        ¿{title}?
+      </a>
+    )
+  }
+  <Image
+    width={224}
+    height={224}
+    className="object-cover size-56  bg-customOrange-500 "
+    src={`${image}`}
+    client:load
+  />
+</div>

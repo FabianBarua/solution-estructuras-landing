@@ -1,0 +1,25 @@
+---
+import ViewTransitions from "astro/components/ViewTransitions.astro";
+import "@/styles/main.css";
+import HeaderHome from "@/components/HeaderHome.astro";
+import FooterHome from "@/components/FooterHome.astro";
+
+interface Props {
+  title: string;
+  isHome?: boolean;
+}
+
+const { title, isHome } = Astro.props;
+---
+
+<!doctype html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

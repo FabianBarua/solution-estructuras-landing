@@ -1,0 +1,36 @@
+---
+import Arrow from "@icons/Arrow.astro";
+interface Props {
+  id: Number;
+  shortName: string;
+  imageUrl: string;
+}
+
+const { id, shortName, imageUrl }: Props = Astro.props;
+---
+
+<article class="w-full h-44 max-w-44 relative overflow-hidden rounded-[34px]">
+  <a
+    class="bg-customOrange-500 hover:bg-customOrange-400 absolute -top-[1.2rem] -right-[1.2rem] transition-all hover:scale-110 rounded-tl-[30px] rounded-bl-[35px] p-4 flex items-end rounded-br-[30px] size-[70px]"
+    href={`/productos/${id}`}
+  >
+    <Arrow />
+  </a>
+  <div
+    class="size-full from-black/60 bg-cover bg-center"
+    style={{
+      backgroundImage: `linear-gradient(to top, #000 0%,var(--tw-gradient-stops)80%) , url(${imageUrl});`,
+    }}
+  >
+  </div>
+  <a
+    href={`/productos/${id}`}
+    class="absolute justify-center text-lg text-white flex items-center gap-1 bottom-4 py-1 px-2 left-1/2 -translate-x-1/2 transition-all bg-customBlue-500 hover:bg-customBlue-400 hover:scale-105 w-[80%] rounded-xl text-center"
+  >
+    <span>¿</span>
+    <h3 class="truncate">
+      {shortName}
+    </h3>
+    <span>?</span>
+  </a>
+</article>

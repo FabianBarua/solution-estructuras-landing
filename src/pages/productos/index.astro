@@ -1,0 +1,36 @@
+---
+import SectionResize from "@/components/SectionResize.astro";
+import Layout from "@/layouts/Layout.astro";
+import { ALL_PARAMS, ALL_SORTS } from "@/shared/constants";
+import { getProductsWithParams } from "@/shared/services/estructuras";
+import { ProductsSection } from "@react/ProductsSection";
+
+import { db, Categories } from "astro:db";
+
+let params = Astro.url.searchParams;
+
+const initialParams = {
+  categories: params.get(ALL_PARAMS.categories) || "",
+  search: params.get(ALL_PARAMS.search) || "",
+  page: params.get(ALL_PARAMS.page) || 1,
+  sortID: params.get(ALL_PARAMS.sortID) || ALL_SORTS[0].id,
+};
+
+const initialCategories = await db.select().from(Categories);
+const initialProducts = await getProductsWithParams({
+  params: initialParams,
+  url: Astro.url.origin,
+});
+---
+
+<Layout title="Buscando productos 🔍">
+  <SectionResize>
+    <ProductsSection
+      transition:persist
+      client:load
+      initialCategories={initialCategories}
+      initialParams={initialParams}
+      initialProducts={initialProducts}
+    />
+  </SectionResize>
+</Layout>
