@@ -7,16 +7,15 @@ export async function POST(context: APIContext): Promise<Response> {
   const formData = await context.request.formData();
   const username = formData.get("username");
   const password = formData.get("password");
+
   //validate the data
-  if (typeof username !== "string") {
-    return new Response("Invalid username", {
-      status: 400,
-    });
-  }
-  if (typeof password !== "string") {
-    return new Response("Invalid password", {
-      status: 400,
-    });
+  if (typeof username !== "string" || typeof password !== "string") {
+    return new Response(
+      JSON.stringify({ message: "Usuario o contraseña invalidas.1" }),
+      {
+        status: 401,
+      }
+    );
   }
 
   //search the user
@@ -24,29 +23,18 @@ export async function POST(context: APIContext): Promise<Response> {
     await db.select().from(User).where(eq(User.username, username))
   ).at(0);
 
-  //if user not found
-  if (!foundUser) {
-    return new Response("Incorrect username or password", { status: 400 });
-  }
 
-  // verify if user has password
-  if (!foundUser.password) {
-    return new Response("Invalid password", {
-      status: 400,
-    });
-  }
-
-  const validPassword = await new Argon2id().verify(
+  const validPassword = foundUser? await new Argon2id().verify(
     foundUser.password,
     password
-  );
+  ) : false;
 
   //If password is not valid
   if (!validPassword) {
-    return new Response("Incorrect username or password", { status: 400 });
+    return new Response(JSON.stringify({
+      message: "Usuario o contraseña invalidas.",
+    }), { status: 401 });
   }
-
-  //Password is valid, user can log in
 
   const session = await lucia.createSession(foundUser.id, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
@@ -55,5 +43,7 @@ export async function POST(context: APIContext): Promise<Response> {
     sessionCookie.value,
     sessionCookie.attributes
   );
-  return context.redirect("/");
+  
+  return new Response(JSON.stringify({ message: "Sesión iniciada." }));
+  
 }

@@ -1,3 +1,8 @@
+import {
+  Home,
+  Package,
+} from "lucide-react"
+
 export const ALL_SORTS = [
   {
     id: 0,
@@ -105,3 +110,18 @@ export const testProducts = {
     }
   ]
 }
+
+export const ALL_SECTIONS = [
+  {
+    id:0,
+    name: "Inicio",
+    icon: Home,
+    url: "/admin"
+  },
+  {
+    id:1,
+    name: "Productos",
+    icon: Package,
+    url: "/admin/products"
+  }
+]

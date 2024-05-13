@@ -12,6 +12,7 @@
       "@icons/*": ["src/components/icons/*"],
       "@layouts/*": ["src/layouts/*"],
       "@db/*": ["db/*"],
+      "@lib/*": ["src/shared/lib/*"],
     }
   }
 }

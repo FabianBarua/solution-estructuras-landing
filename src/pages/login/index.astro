@@ -1,0 +1,14 @@
+---
+import Logo from "@/components/Logo.astro";
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { LoginForm } from "@react/LoginForm";
+---
+
+<AdminLayout title="Login - Panel FB">
+  <div class="h-screen w-full flex justify-center items-center">
+    <a href="/" class="absolute top-10 left-10">
+      <Logo />
+    </a>
+    <LoginForm client:load />
+  </div>
+</AdminLayout>

@@ -1,15 +1,14 @@
 ---
 import ViewTransitions from "astro/components/ViewTransitions.astro";
-import "@/styles/main.css";
-import HeaderHome from "@/components/HeaderHome.astro";
-import FooterHome from "@/components/FooterHome.astro";
+
+import "@/styles/panel.css";
 
 interface Props {
   title: string;
-  isHome?: boolean;
+  animation?: boolean;
 }
 
-const { title, isHome } = Astro.props;
+const { title, animation = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -17,9 +16,10 @@ const { title, isHome } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>{title || "Panel"}</title>
+    {animation && <ViewTransitions />}
   </head>
-  <body>
+  <body class="h-screen">
     <slot />
   </body>
 </html>

@@ -1,5 +1,5 @@
 ---
-import { Dashboard } from "@/components/react/Dashboard";
+import { ProductsDashboard } from "@/components/react/ProductsDashboard.tsx";
 import { DashboardLayout } from "@/components/react/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout.astro";
 
@@ -10,8 +10,8 @@ if (!user) {
 }
 ---
 
-<AdminLayout title="Dashboard">
-  <DashboardLayout client:load url={"/admin"}>
-    <Dashboard client:load />
+<AdminLayout title="Products">
+  <DashboardLayout client:load url={"/admin/products"}>
+    <ProductsDashboard client:load />
   </DashboardLayout>
 </AdminLayout>

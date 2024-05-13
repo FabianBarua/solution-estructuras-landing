@@ -9,7 +9,11 @@ import react from "@astrojs/react";
 export default defineConfig({
   output: "server",
   adapter: vercel(),
-  integrations: [db(), tailwind(), react()],
+  integrations: [db(), tailwind(
+    {
+      applyBaseStyles: false,
+    }
+  ), react()],
   vite: {
     optimizeDeps: {
       exclude: ["oslo"]
