@@ -1,55 +1,46 @@
 ---
-import SectionResize from "@components/SectionResize.astro";
+import SectionResize from "@components/SectionResize.astro"
 ---
 
 <SectionResize id="sobre-nosotros" className=" ">
-  <div
-    class="bg-white rounded-[2rem] h-60 flex relative justify-between items-centers w-full"
-  >
-    <div class="sm:max-w-xs max-w-xs lg:max-w-sm lg:py-12 lg:px-12 p-9">
-      <h2 class="text-customBlue-500 font-bold text-[30px] leading-8">
-        Sobre nosotros
-      </h2>
-      <p class="text-black leading-5 mt-3">
-        SOLUTION es una empresa especializada en la comercialización de
-        productos agrícolas, agrícolas, jardinería, hogar y veterinaria.
-      </p>
-    </div>
+	<div class="items-centers relative flex h-60 w-full justify-between rounded-[2rem] bg-white">
+		<div class="max-w-xs p-9 sm:max-w-xs lg:max-w-sm lg:px-12 lg:py-12">
+			<h2 class="text-[30px] font-bold leading-8 text-customBlue-500">Sobre nosotros</h2>
+			<p class="mt-3 leading-5 text-black">
+				SOLUTION es una empresa especializada en la comercialización de productos agrícolas,
+				agrícolas, jardinería, hogar y veterinaria.
+			</p>
+		</div>
 
-    <div
-      class="size-24 sm:size-52 sm:block hidden top-1/2 sm:-translate-y-[45%] lg:hidden right-3 sm:right-3 bg-customOrange-500 rounded-full absolute"
-    >
-      <div class="size-full relative">
-        <img
-          src="/images/manOk.png"
-          loading="lazy"
-          class="bottom-3 mask absolute"
-          alt=""
-        />
-      </div>
-    </div>
+		<div
+			class="absolute right-3 top-1/2 hidden size-24 rounded-full bg-customOrange-500 sm:right-3 sm:block sm:size-52 sm:-translate-y-[45%] lg:hidden"
+		>
+			<div class="relative size-full">
+				<img src="/images/manOk.png" loading="lazy" class="mask absolute bottom-3" alt="" />
+			</div>
+		</div>
 
-    <svg
-      width="350px"
-      height="100%"
-      viewBox="0 0 502 333"
-      fill="none"
-      class="top-0 -right-0 absolute lg:block hidden"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect
-        x="-11"
-        y="140.629"
-        width="383.259"
-        height="383.259"
-        rx="31"
-        transform="rotate(-30 -11 140.629)"
-        fill="#DB500B"></rect>
-    </svg>
-    <img
-      loading="lazy"
-      class="h-80 lg:block hidden w-auto bottom-0 right-10 absolute"
-      src="/images/manOk.png"
-    />
-  </div>
+		<svg
+			width="350px"
+			height="100%"
+			viewBox="0 0 502 333"
+			fill="none"
+			class="absolute -right-0 top-0 hidden lg:block"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<rect
+				x="-11"
+				y="140.629"
+				width="383.259"
+				height="383.259"
+				rx="31"
+				transform="rotate(-30 -11 140.629)"
+				fill="#DB500B"></rect>
+		</svg>
+		<img
+			loading="lazy"
+			class="absolute bottom-0 right-10 hidden h-80 w-auto lg:block"
+			src="/images/manOk.png"
+		/>
+	</div>
 </SectionResize>

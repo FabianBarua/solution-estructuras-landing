@@ -1,86 +1,78 @@
 ---
-import Logo from "@components/Logo.astro";
-import Whatsapp from "@icons/Whatsapp.astro";
-import HomeArticle from "@components/HomeArticle.astro";
-import CallToAction from "@/components/CallToAction.astro";
-import { db, Products } from "astro:db";
+import CallToAction from "@/components/CallToAction.astro"
+import HomeArticle from "@components/HomeArticle.astro"
+import Logo from "@components/Logo.astro"
+import Whatsapp from "@icons/Whatsapp.astro"
+import { db, Products } from "astro:db"
 
 interface Props {
-  isHome?: boolean;
+	isHome?: boolean
 }
 
-const products = await db.select().from(Products).offset(0).limit(2);
+const products = await db.select().from(Products).offset(0).limit(2)
 
-const { isHome }: Props = Astro.props;
+const { isHome }: Props = Astro.props
 ---
 
 <header
-  id={"headerLayout"}
-  transition:name="header"
-  transition:animate="none"
-  class={`w-full text-white py-12 bg-customOrange-500 transition-all flex flex-col  items-center  rounded-b-[50px] sm:rounded-b-[100px]  `}
+	id={"headerLayout"}
+	transition:name="header"
+	transition:animate="none"
+	class={`w-full text-white py-12 bg-customOrange-500 transition-all flex flex-col  items-center  rounded-b-[50px] sm:rounded-b-[100px]  `}
 >
-  <nav class="w-full max-w-5xl flex justify-between items-center p-6 xl:p-0">
-    <a href="/">
-      <Logo />
-    </a>
-    <ul class="gap-2 sm:flex hidden">
-      <li
-        class="transition-all bg-transparent hover:bg-customOrange-700 rounded-lg"
-      >
-        <a href="/#sobre-nosotros" class="px-2">Sobre</a>
-      </li>
-      <li
-        class="transition-all bg-transparent hover:bg-customOrange-700 rounded-lg"
-      >
-        <a href="/productos" class="px-2">Productos</a>
-      </li>
-      <li
-        class="transition-all bg-transparent hover:bg-customOrange-700 rounded-lg"
-      >
-        <a href="/#contacto" class="px-2">Contacto</a>
-      </li>
-    </ul>
-  </nav>
+	<nav class="flex w-full max-w-5xl items-center justify-between p-6 xl:p-0">
+		<a href="/">
+			<Logo />
+		</a>
+		<ul class="hidden gap-2 sm:flex">
+			<li class=" rounded-lg bg-transparent transition-all hover:bg-customOrange-700">
+				<a href="/#sobre-nosotros" class="px-2">Sobre</a>
+			</li>
+			<li class="rounded-lg bg-transparent transition-all hover:bg-customOrange-700">
+				<a href="/productos" class="px-2">Productos</a>
+			</li>
+			<li class="rounded-lg bg-transparent transition-all hover:bg-customOrange-700">
+				<a href="/#contacto" class="px-2">Contacto</a>
+			</li>
+		</ul>
+	</nav>
 
-  {
-    isHome && (
-      <div
-        id="homeInitial"
-        transition:animate="none"
-        class=" h-[350px] flex z-0 p-6 lg:p-0 pointer-events-none relative w-full max-w-5xl  justify-center gap-20 mx-auto "
-      >
-        <div class="  h-full  justify-center items-center lg:flex hidden w-full max-w-96  relative">
-          <div class=" absolute  right-20 -bottom-3 -rotate-12  scale-75">
-            <HomeArticle
-              visibility={100}
-              title={products[0].shortName}
-              id={products[0].id}
-              image={products[0].imageUrl}
-            />
-          </div>
-          <div class=" absolute right-0 rotate-[-4.45deg]">
-            <HomeArticle
-              visibility={100}
-              title={products[1].shortName}
-              id={products[1].id}
-              image={products[1].imageUrl}
-            />
-          </div>
-        </div>
-        <div class=" flex justify-center  flex-col">
-          <p class=" text-[18px] pointer-events-none opacity-50">
-            Desde 1980 para vos
-          </p>
-          <h1 class="text-[39.36px]  max-w-[400px]  leading-[.9]">
-            Soluciones <br /> para tus problemas en un <b>solo lugar</b>
-          </h1>
-          <CallToAction href="#">
-            Contratar ya
-            <Whatsapp />
-          </CallToAction>
-        </div>
-      </div>
-    )
-  }
+	{
+		isHome && (
+			<div
+				id="homeInitial"
+				transition:animate="none"
+				class=" pointer-events-none relative z-0 mx-auto flex h-[350px] w-full max-w-5xl justify-center  gap-20 p-6 lg:p-0 "
+			>
+				<div class="  relative  hidden h-full w-full max-w-96 items-center justify-center  lg:flex">
+					<div class=" absolute  -bottom-3 right-20 -rotate-12  scale-75">
+						<HomeArticle
+							visibility={100}
+							title={products[0].shortName}
+							id={products[0].id}
+							image={products[0].imageUrl}
+						/>
+					</div>
+					<div class=" absolute right-0 rotate-[-4.45deg]">
+						<HomeArticle
+							visibility={100}
+							title={products[1].shortName}
+							id={products[1].id}
+							image={products[1].imageUrl}
+						/>
+					</div>
+				</div>
+				<div class=" flex flex-col  justify-center">
+					<p class=" pointer-events-none text-[18px] opacity-50">Desde 1980 para vos</p>
+					<h1 class="max-w-[400px]  text-[39.36px]  leading-[.9]">
+						Soluciones <br /> para tus problemas en un <b>solo lugar</b>
+					</h1>
+					<CallToAction href="#">
+						Contratar ya
+						<Whatsapp />
+					</CallToAction>
+				</div>
+			</div>
+		)
+	}
 </header>

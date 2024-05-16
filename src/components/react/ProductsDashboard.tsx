@@ -1,152 +1,149 @@
-import {
-  File,
-  Home,
-  LineChart,
-  ListFilter,
-  MoreHorizontal,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  Users2,
-} from "lucide-react";
 
-import { Badge } from "@components/ui/badge";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@components/ui/breadcrumb";
-import { Button } from "@components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@components/ui/dropdown-menu";
-import { Input } from "@components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCaption,
-} from "@components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@components/ui/tooltip";
-import { ScrollArea } from "../ui/scroll-area";
-import { DataTable } from "./DataTable";
-import { columns } from "./Columns";
-import { productArrow } from "./Data";
+import { Button } from "@/components/ui/button"
+import { getCategories } from "@/shared/services/estructuras"
+import type { Product } from "@/types"
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { toast, Toaster } from "sonner"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog.tsx"
+import { AddProduct } from "./AddProduct.tsx"
+import { columns } from "./Columns"
+import { DataTable } from "./DataTable"
+import { EditForm } from "./EditForm.tsx"
+
 
 export function ProductsDashboard() {
 
+	const [productArrow, setProductArrow] = useState<Product[]>([])
+	const [editProduct, setEditProduct] = useState<Product>(null)
+	const [categorias, setCategorias] = useState([])
+	const [addProduct, setAddProduct] = useState(false)
+	const [deleteProduct, setDeleteProduct] = useState<Product>(null)
+
+	useEffect(() => {
+		async function fetchData() {
+			const response = await fetch("/api/productos/all")
+			const data = await response.json()
+
+			const { categories } = await getCategories({
+				limit: 5,
+				url: window.location.origin
+			})
+			setCategorias(categories)
+
+			setProductArrow(data.products)
 
 
+		}
+		fetchData()
+	}, [])
 
-  return (
-    <>
+	return (
+		<>
+			<Toaster />
 
-      <DataTable columns={columns} data={productArrow} />
+			<Dialog open={deleteProduct !== null} onOpenChange={
+				() => {
+					setDeleteProduct(null)
+				}
+			}>
+				<DialogContent className="sm:max-w-[425px]">
+					<DialogHeader>
+						<DialogTitle>Eliminar {deleteProduct?.name}</DialogTitle>
+						<DialogDescription>
+							¿Deseas eliminar el producto?
+						</DialogDescription>
+					</DialogHeader>
+
+					<DialogFooter>
+						<Button onClick={
+							() => {
+								setDeleteProduct(null)
+							}
+						}
+							variant="secondary" >Cancelar</Button>
+						<Button
+							onClick={
+								() => {
+
+									const deletePromise = async () => {
+										const response = await fetch('/api/productos/delete', {
+											method: 'POST',
+											body: JSON.stringify({ id: deleteProduct.id }),
+											headers: {
+												'Content-Type': 'application/json'
+											}
+										}
+										)
+
+										console.log(response.status)
+
+										if (!response.ok) {
+											throw new Error('No se pudo eliminar el producto')
+										}
+
+										setProductArrow(productArrow.filter(product => product.id !== deleteProduct.id))
+										setDeleteProduct(null)
+
+									}
+
+									toast.promise(deletePromise(), {
+										loading: 'Eliminando producto...',
+										success: 'Producto eliminado',
+										error: 'No se pudo eliminar el producto'
+									})
+
+								}
+							}
+							variant="secondary" >Eliminar</Button>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
+
+			{
+				(addProduct && !editProduct) && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.5 }}
+					>
+						<AddProduct setProductArrow={setProductArrow} setAddProduct={setAddProduct} categorias={categorias} />
+					</motion.div>
+				)
+			}
+
+			{
+				(!addProduct && editProduct) && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.5 }}
+						className="  p-6 gap-5   flex flex-col overflow-hidden h-screen  w-full  "
+
+					>
+
+						<EditForm categorias={categorias} product={editProduct} setProductArrow={setProductArrow} setEditProduct={setEditProduct} />
+					</motion.div>
+				)
+			}
+
+			{
+				(!addProduct && !editProduct) && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.5 }}
+						className="    flex flex-col overflow-hidden h-screen  w-full  "
+
+					>
+
+						<DataTable setAddProduct={setAddProduct} columns={columns(setEditProduct, setDeleteProduct)} data={productArrow} />
+
+					</motion.div>
+				)
+			}
 
 
-      {/* 
-
-      <div className=" px-6  flex flex-col  overflow-hidden ">
-        <ScrollArea className=" border rounded-md">
-          <Table className="  ">
-              <TableRow>
-                <TableHead className="w-[100px]">Imagen</TableHead>
-                <TableHead>Nombre</TableHead>
-                <TableHead className="w-[200px] text-center ">Estado</TableHead>
-                <TableHead className="w-[200px] text-center ">Editar</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {fakeList.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell className="w-[100px]">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-12 w-12 object-cover rounded-md"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <span>{item.name}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className=" w-[200px] ">
-                    <Badge
-                    className=" mx-auto"
-                      variant={item.status === allStatus.active ? "primary" : "danger"}
-                    >
-                      {item.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="w-[200px] ">
-                    <div className=" h-full w-full flex justify-center items-center flex-col"> 
-                    <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <MoreHorizontal className="h-5 w-5" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        <DropdownMenuItem>
-                          <div className=" flex gap-3">
-                          <Package className="h-5 w-5" />
-                          <span>Ver</span>
-                          </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Package2 className="h-5 w-5" />
-                          <span>Editar</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Users2 className="h-5 w-5" />
-                          <span>Eliminar</span>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ScrollArea>
-      </div>
-
-      */}
-
-      {/* <div className="text-xs p-6 h-[10%] text-muted-foreground">
-        Showing <strong>1-10</strong> of <strong>32</strong> products
-      </div> */}
-    </>
-  );
+		</>
+	)
 }

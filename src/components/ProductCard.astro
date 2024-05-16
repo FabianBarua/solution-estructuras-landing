@@ -1,36 +1,36 @@
 ---
-import Arrow from "@icons/Arrow.astro";
+import Arrow from "@icons/Arrow.astro"
 interface Props {
-  id: Number;
-  shortName: string;
-  imageUrl: string;
+	id: Number
+	shortName: string
+	imageUrl: string
 }
 
-const { id, shortName, imageUrl }: Props = Astro.props;
+const { id, shortName, imageUrl }: Props = Astro.props
 ---
 
-<article class="w-full h-44 max-w-44 relative overflow-hidden rounded-[34px]">
-  <a
-    class="bg-customOrange-500 hover:bg-customOrange-400 absolute -top-[1.2rem] -right-[1.2rem] transition-all hover:scale-110 rounded-tl-[30px] rounded-bl-[35px] p-4 flex items-end rounded-br-[30px] size-[70px]"
-    href={`/productos/${id}`}
-  >
-    <Arrow />
-  </a>
-  <div
-    class="size-full from-black/60 bg-cover bg-center"
-    style={{
-      backgroundImage: `linear-gradient(to top, #000 0%,var(--tw-gradient-stops)80%) , url(${imageUrl});`,
-    }}
-  >
-  </div>
-  <a
-    href={`/productos/${id}`}
-    class="absolute justify-center text-lg text-white flex items-center gap-1 bottom-4 py-1 px-2 left-1/2 -translate-x-1/2 transition-all bg-customBlue-500 hover:bg-customBlue-400 hover:scale-105 w-[80%] rounded-xl text-center"
-  >
-    <span>¿</span>
-    <h3 class="truncate">
-      {shortName}
-    </h3>
-    <span>?</span>
-  </a>
+<article class="relative h-44 w-full max-w-44 overflow-hidden rounded-[34px]">
+	<a
+		class="absolute -right-[1.2rem] -top-[1.2rem] flex size-[70px] items-end rounded-bl-[35px] rounded-br-[30px] rounded-tl-[30px] bg-customOrange-500 p-4 transition-all hover:scale-110 hover:bg-customOrange-400"
+		href={`/productos/${id}`}
+	>
+		<Arrow />
+	</a>
+	<div
+		class="size-full from-black/60 bg-cover bg-center"
+		style={{
+			backgroundImage: `linear-gradient(to top, #000 0%,var(--tw-gradient-stops)80%) , url(${imageUrl});`,
+		}}
+	>
+	</div>
+	<a
+		href={`/productos/${id}`}
+		class="absolute bottom-4 left-1/2 flex w-[80%] -translate-x-1/2 items-center justify-center gap-1 rounded-xl bg-customBlue-500 px-2 py-1 text-center text-lg text-white transition-all hover:scale-105 hover:bg-customBlue-400"
+	>
+		<span>¿</span>
+		<h3 class="truncate">
+			{shortName}
+		</h3>
+		<span>?</span>
+	</a>
 </article>

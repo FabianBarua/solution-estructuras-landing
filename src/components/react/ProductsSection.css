@@ -1,8 +1,8 @@
 #selectItems div span {
-    color: white;
+	color: white;
 }
 
-#productImage:hover~#linkToProduct {
-    scale: 1.1;
-    background-color: theme(colors.customOrange.300);
+#productImage:hover ~ #linkToProduct {
+	scale: 1.1;
+	background-color: theme(colors.customOrange.300);
 }

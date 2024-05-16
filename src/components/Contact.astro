@@ -1,29 +1,24 @@
 ---
-import Whatsapp from "@icons/Whatsapp.astro";
-import PurpleButton from "@/components/CallToAction.astro";
-import SectionResize from "./SectionResize.astro";
-import ContactSquere from "./ContactSquere.astro";
+import PurpleButton from "@/components/CallToAction.astro"
+import Whatsapp from "@icons/Whatsapp.astro"
+import ContactSquere from "./ContactSquere.astro"
+import SectionResize from "./SectionResize.astro"
 ---
 
-<section
-  id="contacto"
-  class="bg-customOrange-500 flex justify-center p-6 mt-12 text-white"
->
-  <SectionResize className="flex  justify-between">
-    <div class="flex flex-col max-w-96 justify-center">
-      <h4 class="text-3xl">
-        <b>Comunicate con nosotros al Whatsapp!</b>
-      </h4>
-      <p class="mt-3 leading-5">
-        Para un mejor acesoramiento contactanos con el boton de abajo.
-      </p>
-      <PurpleButton href="#">
-        Escribinos
-        <Whatsapp />
-      </PurpleButton>
-    </div>
-    <div class="bg-customOrange-600 size-72 rounded-[3rem] p-6 sm:block hidden">
-      <ContactSquere />
-    </div>
-  </SectionResize>
+<section id="contacto" class="mt-12 flex justify-center bg-customOrange-500 p-6 text-white">
+	<SectionResize className="flex  justify-between">
+		<div class="flex max-w-96 flex-col justify-center">
+			<h4 class="text-3xl">
+				<b>Comunicate con nosotros al Whatsapp!</b>
+			</h4>
+			<p class="mt-3 leading-5">Para un mejor acesoramiento contactanos con el boton de abajo.</p>
+			<PurpleButton href="#">
+				Escribinos
+				<Whatsapp />
+			</PurpleButton>
+		</div>
+		<div class="hidden size-72 rounded-[3rem] bg-customOrange-600 p-6 sm:block">
+			<ContactSquere />
+		</div>
+	</SectionResize>
 </section>

@@ -1,13 +1,13 @@
 ---
 interface Props {
-  href: string;
+	href: string
 }
-const { href }: Props = Astro.props;
+const { href }: Props = Astro.props
 ---
 
 <a
-  href={href}
-  class="transition-colors justify-center items-center bg-customOrange-500 hover:bg-customOrange-400 text-white flex gap-1 px-3 py-1 rounded-xl"
+	href={href}
+	class="flex items-center justify-center gap-1 rounded-xl bg-customOrange-500 px-3 py-1 text-white transition-colors hover:bg-customOrange-400"
 >
-  <slot />
+	<slot />
 </a>

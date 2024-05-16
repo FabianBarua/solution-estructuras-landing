@@ -1,127 +1,118 @@
 ---
-import CallToAction from "@/components/CallToAction.astro";
-import Whatsapp from "@/components/icons/Whatsapp.astro";
-import SectionResize from "@/components/SectionResize.astro";
-import Layout from "@/layouts/Layout.astro";
-import { db, eq, Products, Categories } from "astro:db";
-import { ImageCarrousel } from "@react/ImageCarrousel";
-import GridResponsive from "@/components/GridResponsive.astro";
-import ShowMoreIcon from "@/components/icons/ShowMoreIcon.astro";
-import ProductCard from "@/components/ProductCard.astro";
-import ShowMoreButton from "@/components/ShowMoreButton.astro";
-import { motion } from "framer-motion";
-import Search from "@icons/Search.astro";
-import { ALL_PARAMS } from "@/shared/constants";
-const id = parseInt(Astro.params.id) || 0;
+import CallToAction from "@/components/CallToAction.astro"
+import GridResponsive from "@/components/GridResponsive.astro"
+import ProductCard from "@/components/ProductCard.astro"
+import SectionResize from "@/components/SectionResize.astro"
+import ShowMoreButton from "@/components/ShowMoreButton.astro"
+import ShowMoreIcon from "@/components/icons/ShowMoreIcon.astro"
+import Whatsapp from "@/components/icons/Whatsapp.astro"
+import Layout from "@/layouts/Layout.astro"
+import { ALL_PARAMS } from "@/shared/constants"
+import Search from "@icons/Search.astro"
+import { ImageCarrousel } from "@react/ImageCarrousel"
+import { Categories, Products, db, eq } from "astro:db"
+import { motion } from "framer-motion"
+const id = parseInt(Astro.params.id) || 0
 
 const [data] = await db
-  .select()
-  .from(Products)
-  .innerJoin(Categories, eq(Products.categoryId, Categories.id))
-  .where(eq(Products.id, id));
+	.select()
+	.from(Products)
+	.innerJoin(Categories, eq(Products.categoryId, Categories.id))
+	.where(eq(Products.id, id))
 
-const product = data?.Products;
-const category = data?.Categories;
+const product = data?.Products
+const category = data?.Categories
 
-const productImages = [
-  product?.imageUrl,
-  product?.imageUrl2,
-  product?.imageUrl3,
-].filter((imageUrl) => imageUrl !== null);
+const productImages = [product?.imageUrl, product?.imageUrl2, product?.imageUrl3].filter(
+	(imageUrl) => imageUrl !== null
+)
 
 const initialProducts = await db
-  .select()
-  .from(Products)
-  .where(eq(Products.categoryId, category?.id || 1));
+	.select()
+	.from(Products)
+	.where(eq(Products.categoryId, category?.id || 1))
 
-const random5 = [];
+const random5 = []
 
 for (let i = 0; i < 5; ) {
-  const product =
-    initialProducts[Math.floor(Math.random() * initialProducts.length)];
-  if (!random5.includes(product)) {
-    random5.push(product);
-    i++;
-  }
+	const product = initialProducts[Math.floor(Math.random() * initialProducts.length)]
+	if (!random5.includes(product)) {
+		random5.push(product)
+		i++
+	}
 }
 
 if (!product) {
-  return Astro.redirect("/");
+	return Astro.redirect("/")
 }
 ---
 
 <Layout title={product.name + " 🏗️"}>
-  <SectionResize className=" flex flex-col  ">
-    <div class="flex flex-col sm:flex-row justify-between w-full">
-      <div class="w-full flex justify-center py-12 items-center">
-        <motion.div
-          client:load
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          whileHover={{
-            scale: 1.05,
-            transition: { duration: 0.3 },
-          }}
-          className="size-72 shadow-2xl hover:scale-110 group  rounded-[3rem] overflow-hidden relative"
-        >
-          <div
-            class="size-10 group-hover:scale-110 group-hover:text-black/80 group-hover:bg-white/70 border border-transparent pointer-events-none group-hover:border-white shadow-2xl cursor-pointer transition-all p-2 flex justify-center items-center text-black/20 bg-white/40 absolute top-5 right-5 rounded-full"
-          >
-            <Search />
-          </div>
-          <ImageCarrousel client:load productImages={productImages} />
-        </motion.div>
-      </div>
-      <div class="w-full max-w-lg p-3 sm:p-12 text-white">
-        {
-          product?.name && (
-            <h1 class=" text-3xl leading-6 font-medium">{product.name}</h1>
-          )
-        }
-        <div class="flex mt-4 gap-1 text-sm">
-          <span
-            class="leading-3 py-1 bg-customBlue-600 flex justify-center items-center px-2 rounded-lg border border-customOrange-500 text-customOrange-500"
-          >
-            {product?.id}
-          </span>
-          <a
-            href={`/productos/?${ALL_PARAMS.categories}=${category?.id}`}
-            class="leading-3 py-1 bg-customBlue-600 flex justify-center items-center px-2 rounded-lg border border-customOrange-500 text-customOrange-500"
-          >
-            {category?.name}
-          </a>
-        </div>
-        {
-          product?.description && (
-            <p class=" leading-5 mt-2 text-base text-white/80 font-light">
-              {product?.description}
-            </p>
-          )
-        }
-        <p class="mt-3 text-xl">{product.price}. Gs</p>
-        <CallToAction color="orange" href="#">
-          Comprar en Whatsapp
-          <Whatsapp />
-        </CallToAction>
-      </div>
-    </div>
+	<SectionResize className=" flex flex-col  ">
+		<div class="flex w-full flex-col justify-between sm:flex-row">
+			<div class="flex w-full items-center justify-center py-12">
+				<motion.div
+					client:load
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.3 }}
+					whileHover={{
+						scale: 1.05,
+						transition: { duration: 0.3 },
+					}}
+					className="group relative size-72 overflow-hidden  rounded-[3rem] shadow-2xl hover:scale-110"
+				>
+					<div
+						class="pointer-events-none absolute right-5 top-5 flex size-10 cursor-pointer items-center justify-center rounded-full border border-transparent bg-white/40 p-2 text-black/20 shadow-2xl transition-all group-hover:scale-110 group-hover:border-white group-hover:bg-white/70 group-hover:text-black/80"
+					>
+						<Search />
+					</div>
+					<ImageCarrousel client:load productImages={productImages} />
+				</motion.div>
+			</div>
+			<div class="w-full max-w-lg p-3 text-white sm:p-12">
+				{product?.name && <h1 class=" text-3xl font-medium leading-6">{product.name}</h1>}
+				<div class="mt-4 flex gap-1 text-sm">
+					<span
+						class="flex items-center justify-center rounded-lg border border-customOrange-500 bg-customBlue-600 px-2 py-1 leading-3 text-customOrange-500"
+					>
+						{product?.id}
+					</span>
+					<a
+						href={`/productos/?${ALL_PARAMS.categories}=${category?.id}`}
+						class="flex items-center justify-center rounded-lg border border-customOrange-500 bg-customBlue-600 px-2 py-1 leading-3 text-customOrange-500"
+					>
+						{category?.name}
+					</a>
+				</div>
+				{
+					product?.description && (
+						<p class=" mt-2 text-base font-light leading-5 text-white/80">{product?.description}</p>
+					)
+				}
+				<p class="mt-3 text-xl">{product.price}. Gs</p>
+				<CallToAction color="orange" href="#">
+					Comprar en Whatsapp
+					<Whatsapp />
+				</CallToAction>
+			</div>
+		</div>
 
-    <div class="w-full mt-2 mb-3 flex justify-end">
-      <ShowMoreButton href="/productos/">
-        <p class="text-[18px]">Ver más</p>
-        <ShowMoreIcon />
-      </ShowMoreButton>
-    </div>
+		<div class="mb-3 mt-2 flex w-full justify-end">
+			<ShowMoreButton href="/productos/">
+				<p class="text-[18px]">Ver más</p>
+				<ShowMoreIcon />
+			</ShowMoreButton>
+		</div>
 
-    <GridResponsive>
-      {
-        random5.map(({ id, shortName, imageUrl }) => (
-          <li class=" w-full h-44 min-w-32 max-w-44  ">
-            <ProductCard id={id} shortName={shortName} imageUrl={imageUrl} />
-          </li>
-        ))
-      }
-    </GridResponsive>
-  </SectionResize>
+		<GridResponsive>
+			{
+				random5.map(({ id, shortName, imageUrl }) => (
+					<li class=" h-44 w-full min-w-32 max-w-44  ">
+						<ProductCard id={id} shortName={shortName} imageUrl={imageUrl} />
+					</li>
+				))
+			}
+		</GridResponsive>
+	</SectionResize>
 </Layout>

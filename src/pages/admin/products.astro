@@ -1,17 +1,17 @@
 ---
-import { ProductsDashboard } from "@/components/react/ProductsDashboard.tsx";
-import { DashboardLayout } from "@/components/react/DashboardLayout";
-import AdminLayout from "@/layouts/AdminLayout.astro";
+import { DashboardLayout } from "@/components/react/DashboardLayout"
+import { ProductsDashboard } from "@/components/react/ProductsDashboard.tsx"
+import AdminLayout from "@/layouts/AdminLayout.astro"
 
-const user = Astro.locals.user;
+const user = Astro.locals.user
 
 if (!user) {
-  return Astro.redirect("/login");
+	return Astro.redirect("/login")
 }
 ---
 
 <AdminLayout title="Products">
-  <DashboardLayout client:load url={"/admin/products"}>
-    <ProductsDashboard client:load />
-  </DashboardLayout>
+	<DashboardLayout client:load url={"/admin/products"}>
+		<ProductsDashboard client:load />
+	</DashboardLayout>
 </AdminLayout>

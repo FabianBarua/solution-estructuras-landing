@@ -1,67 +1,67 @@
 ---
-import ViewTransitions from "astro/components/ViewTransitions.astro";
-import "@/styles/main.css";
-import HeaderHome from "@/components/HeaderHome.astro";
-import FooterHome from "@/components/FooterHome.astro";
+import FooterHome from "@/components/FooterHome.astro"
+import HeaderHome from "@/components/HeaderHome.astro"
+import "@/styles/global.css"
+import ViewTransitions from "astro/components/ViewTransitions.astro"
 
 interface Props {
-  title: string;
-  isHome?: boolean;
+	title: string
+	isHome?: boolean
 }
 
-const { title, isHome } = Astro.props;
+const { title, isHome } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="theme-color" content="#993808" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="theme-color" content="#993808" />
 
-    <ViewTransitions />
-    <link
-      rel="preload"
-      href="/fonts/rubik-v28-latin-regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-  </head>
-  <body class="font-rubik min-h-dvh no-scrollbar flex flex-col">
-    <HeaderHome isHome={isHome || false} />
-    <main class="flex-1">
-      <slot />
-    </main>
-    <FooterHome />
-    <style>
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        background: conic-gradient(
-          at 50% 60%,
-          theme(colors.customBlue.500),
-          theme(colors.customBlue.600)
-        );
-      }
-      html {
-        background-color: black;
-      }
-    </style>
-    <script>
-      document.addEventListener("astro:before-swap", (ev) => {
-        const isHome = window.location.pathname === "/";
-        const headerLayout = ev.newDocument.getElementById("headerLayout");
+		<ViewTransitions />
+		<link
+			rel="preload"
+			href="/fonts/rubik-v28-latin-regular.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+	</head>
+	<body class="no-scrollbar flex min-h-dvh flex-col font-rubik">
+		<HeaderHome isHome={isHome || false} />
+		<main class="flex-1">
+			<slot />
+		</main>
+		<FooterHome />
+		<style>
+			html {
+				scroll-behavior: smooth;
+			}
+			body {
+				background: conic-gradient(
+					at 50% 60%,
+					theme(colors.customBlue.500),
+					theme(colors.customBlue.600)
+				);
+			}
+			html {
+				background-color: black;
+			}
+		</style>
+		<script>
+			document.addEventListener("astro:before-swap", (ev) => {
+				const isHome = window.location.pathname === "/"
+				const headerLayout = ev.newDocument.getElementById("headerLayout")
 
-        // cuando pasa de home a x
-        if (isHome && ev.newDocument.getElementById("homeInitial") === null) {
-          const style = document.createElement("style");
-          style.innerHTML = `
+				// cuando pasa de home a x
+				if (isHome && ev.newDocument.getElementById("homeInitial") === null) {
+					const style = document.createElement("style")
+					style.innerHTML = `
             #fakeDiv {
               width: 100%;
               animation: hiddenFakeDiv 0.5s forwards;
@@ -75,20 +75,20 @@ const { title, isHome } = Astro.props;
               }
             }
 
-          `;
-          headerLayout.appendChild(style);
-          const fakeDiv = document.createElement("div");
-          fakeDiv.id = "fakeDiv";
-          headerLayout.appendChild(fakeDiv);
-          fakeDiv.addEventListener("animationend", () => {
-            fakeDiv.remove();
-          });
-        }
+          `
+					headerLayout.appendChild(style)
+					const fakeDiv = document.createElement("div")
+					fakeDiv.id = "fakeDiv"
+					headerLayout.appendChild(fakeDiv)
+					fakeDiv.addEventListener("animationend", () => {
+						fakeDiv.remove()
+					})
+				}
 
-        // cuando pasa de x a home
-        if (!isHome && ev.newDocument.getElementById("homeInitial") !== null) {
-          const style = document.createElement("style");
-          style.innerHTML = `
+				// cuando pasa de x a home
+				if (!isHome && ev.newDocument.getElementById("homeInitial") !== null) {
+					const style = document.createElement("style")
+					style.innerHTML = `
             #homeInitial {
               width: 100%;
               height: 350px;
@@ -103,10 +103,10 @@ const { title, isHome } = Astro.props;
               }
             }
             
-          `;
-          headerLayout.appendChild(style);
-        }
-      });
-    </script>
-  </body>
+          `
+					headerLayout.appendChild(style)
+				}
+			})
+		</script>
+	</body>
 </html>

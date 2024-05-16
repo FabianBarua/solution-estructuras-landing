@@ -1,30 +1,28 @@
 ---
 interface Props {
-  href: string;
-  color?: "blue" | "orange";
+	href: string
+	color?: "blue" | "orange"
 }
-const { href, color }: Props = Astro.props;
+const { href, color }: Props = Astro.props
 
 const COLORS = {
-  blue: {
-    className:
-      "shadow-customBlue-400 hover:bg-customBlue-400 bg-customBlue-500",
-    boxShadow: "#8848ff59",
-  },
-  orange: {
-    className:
-      "shadow-customOrange-400 hover:bg-customOrange-400 bg-customOrange-500",
-    boxShadow: "#ff8c0059",
-  },
-};
+	blue: {
+		className: "shadow-customBlue-400 hover:bg-customBlue-400 bg-customBlue-500",
+		boxShadow: "#8848ff59",
+	},
+	orange: {
+		className: "shadow-customOrange-400 hover:bg-customOrange-400 bg-customOrange-500",
+		boxShadow: "#ff8c0059",
+	},
+}
 
-const colorSelected = COLORS[color] || COLORS.blue;
+const colorSelected = COLORS[color] || COLORS.blue
 ---
 
 <a
-  href={href}
-  style={`box-shadow: ${colorSelected.boxShadow} 0px 0px 25px 0px;`}
-  class={`pointer-events-auto  ${colorSelected.className} text-white hover:-translate-y-1 transition-all flex justify-center items-center w-min text-nowrap gap-2  px-2 py-1 rounded-xl mt-4`}
+	href={href}
+	style={`box-shadow: ${colorSelected.boxShadow} 0px 0px 25px 0px;`}
+	class={`pointer-events-auto  ${colorSelected.className} text-white hover:-translate-y-1 transition-all flex justify-center items-center w-min text-nowrap gap-2  px-2 py-1 rounded-xl mt-4`}
 >
-  <slot />
+	<slot />
 </a>

@@ -1,83 +1,67 @@
 ---
-import { ALL_PARAMS } from "@/shared/constants";
-import { getCategories } from "@/shared/services/estructuras";
+import { ALL_PARAMS } from "@/shared/constants"
+import { getCategories } from "@/shared/services/estructuras"
 const { categories } = await getCategories({
-  limit: null,
-  url: Astro.url.origin,
-});
+	limit: null,
+	url: Astro.url.origin,
+})
 ---
 
 <label
-  for="productos_category"
-  class="cursor-pointer flex justify-center bg-transparent hover:bg-customOrange-700 rounded-lg px-2 gap-2 items-center"
+	for="productos_category"
+	class="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-transparent px-2 hover:bg-customOrange-700"
 >
-  Productos
-  <div id="arrow">
-    <svg
-      class="h-3 w-auto"
-      viewBox="0 0 14 13"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M9.22337 11.5278C8.22905 13.25 5.74323 13.25 4.74891 11.5278L0.647313 4.42361C-0.347013 2.70139 0.895893 0.548606 2.88454 0.548606L11.0877 0.548605C13.0764 0.548605 14.3193 2.70138 13.325 4.42361L9.22337 11.5278Z"
-        fill="white"></path>
-    </svg>
-  </div>
+	Productos
+	<div id="arrow">
+		<svg class="h-3 w-auto" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path
+				d="M9.22337 11.5278C8.22905 13.25 5.74323 13.25 4.74891 11.5278L0.647313 4.42361C-0.347013 2.70139 0.895893 0.548606 2.88454 0.548606L11.0877 0.548605C13.0764 0.548605 14.3193 2.70138 13.325 4.42361L9.22337 11.5278Z"
+				fill="white"></path>
+		</svg>
+	</div>
 </label>
-<input
-  type="checkbox"
-  name="productos_category"
-  id="productos_category"
-  class="peer"
-  hidden
-/>
+<input type="checkbox" name="productos_category" id="productos_category" class="peer" hidden />
 <div class="relative" id="box">
-  <ul
-    class="top-8 z-50 absolute flex-col bg-customOrange-700 rounded-xl w-full p-1 text-sm"
-  >
-    {
-      categories.map((category) => {
-        return (
-          <li class="truncate relative z-50 text-center rounded-lg bg-transparent transition-all hover:bg-black/40 h-min">
-            <a
-              href={`/productos/?${ALL_PARAMS.categories}=${category.id}`}
-              class=""
-            >
-              <p class="p-1 truncate">{category.name}</p>
-            </a>
-          </li>
-        );
-      })
-    }
-  </ul>
+	<ul class="absolute top-8 z-50 w-full flex-col rounded-xl bg-customOrange-700 p-1 text-sm">
+		{
+			categories.map((category) => {
+				return (
+					<li class="relative z-50 h-min truncate rounded-lg bg-transparent text-center transition-all hover:bg-black/40">
+						<a href={`/productos/?${ALL_PARAMS.categories}=${category.id}`} class="">
+							<p class="truncate p-1">{category.name}</p>
+						</a>
+					</li>
+				)
+			})
+		}
+	</ul>
 </div>
 
 <style>
-  #box {
-    opacity: 0;
-    display: none;
-  }
-  #productos_category:checked + #box {
-    opacity: 1;
-    animation: fadeInOut 0.1s ease-in;
-    display: flex;
-  }
+	#box {
+		opacity: 0;
+		display: none;
+	}
+	#productos_category:checked + #box {
+		opacity: 1;
+		animation: fadeInOut 0.1s ease-in;
+		display: flex;
+	}
 
-  @keyframes fadeInOut {
-    0% {
-      opacity: 0;
-      translate: 0% -10%;
-      display: none;
-    }
+	@keyframes fadeInOut {
+		0% {
+			opacity: 0;
+			translate: 0% -10%;
+			display: none;
+		}
 
-    50% {
-      opacity: 0.5;
-    }
+		50% {
+			opacity: 0.5;
+		}
 
-    100% {
-      opacity: 1;
-      display: flex;
-    }
-  }
+		100% {
+			opacity: 1;
+			display: flex;
+		}
+	}
 </style>

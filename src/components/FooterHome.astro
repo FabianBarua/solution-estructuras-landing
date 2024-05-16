@@ -1,75 +1,71 @@
 ---
-import Instagram from "@icons/Instagram.astro";
-import Logo from "@components/Logo.astro";
-import Facebook from "@icons/Facebook.astro";
-import Whatsapp from "@icons/Whatsapp.astro";
-import Pin from "@icons/Pin.astro";
-import Contact from "@components/Contact.astro";
+import Contact from "@components/Contact.astro"
+import Logo from "@components/Logo.astro"
+import Facebook from "@icons/Facebook.astro"
+import Instagram from "@icons/Instagram.astro"
+import Pin from "@icons/Pin.astro"
+import Whatsapp from "@icons/Whatsapp.astro"
 
 const socialMedia = [
-  {
-    url: "/",
-    Icon: Instagram,
-  },
-  {
-    url: "/",
-    Icon: Facebook,
-  },
-  {
-    url: "/",
-    Icon: Whatsapp,
-  },
-  {
-    url: "/",
-    Icon: Pin,
-  },
-];
+	{
+		url: "/",
+		Icon: Instagram,
+	},
+	{
+		url: "/",
+		Icon: Facebook,
+	},
+	{
+		url: "/",
+		Icon: Whatsapp,
+	},
+	{
+		url: "/",
+		Icon: Pin,
+	},
+]
 ---
 
 <Contact />
 
-<footer
-  class="my-16 flex flex-col sm:flex-row px-6 gap-5 max-w-5xl mx-auto text-white"
->
-  <div>
-    <a href="/"> <Logo /></a>
-    <div class="flex mt-2 gap-2">
-      {
-        socialMedia.map(({ url, Icon }) => (
-          <a
-            class="bg-customOrange-500 size-8 rounded-full flex justify-center items-center"
-            href={url}
-          >
-            {<Icon />}
-          </a>
-        ))
-      }
-    </div>
-    <p
-      class="w-full text-balance leading-4 opacity-35 font-normal mt-4 sm:mt-10 text-sm"
-    >
-      Las fotos son para fines ilustrativos. Las especificaciones técnicas y
-      descripciones están sujetas a cambios sin previo aviso.
-    </p>
-  </div>
-  <div class="flex gap-2 sm:gap-20 justify-end w-full">
-    <article>
-      <b>Productos Top</b>
-      <ul>
-        <li><a href="#">Escalables</a></li>
-        <li><a href="#">Electricos</a></li>
-        <li><a href="#">Automotriz</a></li>
-        <li><a href="#">Industriales</a></li>
-      </ul>
-    </article>
-    <article>
-      <b>Informaciones</b>
-      <ul>
-        <li><a href="/#sobre-nosotros">Sobre Nosotros</a></li>
-        <li><a href="/#nuestro-diferencial">Nuestros diferenciales</a></li>
-        <li><a href="/productos">Nuestros Productos</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </article>
-  </div>
+<footer class="mx-auto my-16 flex max-w-5xl flex-col gap-5 px-6 text-white sm:flex-row">
+	<div>
+		<a href="/"> <Logo /></a>
+		<div class="mt-2 flex gap-2">
+			{
+				socialMedia.map(({ url, Icon }) => (
+					<a
+						class="flex size-8 items-center justify-center rounded-full bg-customOrange-500"
+						href={url}
+					>
+						{<Icon />}
+					</a>
+				))
+			}
+		</div>
+		<p class="mt-4 w-full text-balance text-sm font-normal leading-4 opacity-35 sm:mt-10">
+			Las fotos son para fines ilustrativos. Las especificaciones técnicas y descripciones están
+			sujetas a cambios sin previo aviso.
+		</p>
+	</div>
+	<div class="flex w-full justify-end gap-2 sm:gap-20">
+		<article>
+			<b>Productos Top</b>
+			<ul>
+				<li><a href="#">Escalables</a></li>
+				<li><a href="#">Electricos</a></li>
+				<li><a href="#">Automotriz</a></li>
+				<li><a href="#">Industriales</a></li>
+			</ul>
+		</article>
+		<article>
+			<b>Informaciones</b>
+			<ul>
+				<li><a href="/#sobre-nosotros">Sobre Nosotros</a></li>
+				<li><a href="/#nuestro-diferencial">Nuestros diferenciales</a></li>
+				<li><a href="/productos">Nuestros Productos</a></li>
+				<li><a href="#contacto">Contacto</a></li>
+			</ul>
+		</article>
+	</div>
 </footer>
