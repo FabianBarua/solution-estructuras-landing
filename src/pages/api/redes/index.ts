@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({}) => {
 		const res = await db.select().from(SocialMedia)
 
 		return new Response(JSON.stringify({ redes: res }), {
-			status: 415,
+			status: 200,
 			headers: { "Content-Type": "application/json" },
 		})
 	} catch (error) {

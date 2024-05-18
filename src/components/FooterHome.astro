@@ -1,29 +1,8 @@
 ---
 import Contact from "@components/Contact.astro"
 import Logo from "@components/Logo.astro"
-import Facebook from "@icons/Facebook.astro"
-import Instagram from "@icons/Instagram.astro"
-import Pin from "@icons/Pin.astro"
-import Whatsapp from "@icons/Whatsapp.astro"
-
-const socialMedia = [
-	{
-		url: "/",
-		Icon: Instagram,
-	},
-	{
-		url: "/",
-		Icon: Facebook,
-	},
-	{
-		url: "/",
-		Icon: Whatsapp,
-	},
-	{
-		url: "/",
-		Icon: Pin,
-	},
-]
+import { FooterCategories } from "@react/FooterCategories"
+import { Redes } from "@react/Redes"
 ---
 
 <Contact />
@@ -31,17 +10,8 @@ const socialMedia = [
 <footer class="mx-auto my-16 flex max-w-5xl flex-col gap-5 px-6 text-white sm:flex-row">
 	<div>
 		<a href="/"> <Logo /></a>
-		<div class="mt-2 flex gap-2">
-			{
-				socialMedia.map(({ url, Icon }) => (
-					<a
-						class="flex size-8 items-center justify-center rounded-full bg-customOrange-500"
-						href={url}
-					>
-						{<Icon />}
-					</a>
-				))
-			}
+		<div class="mt-2 flex h-8 gap-2">
+			<Redes client:load />
 		</div>
 		<p class="mt-4 w-full text-balance text-sm font-normal leading-4 opacity-35 sm:mt-10">
 			Las fotos son para fines ilustrativos. Las especificaciones técnicas y descripciones están
@@ -51,11 +21,8 @@ const socialMedia = [
 	<div class="flex w-full justify-end gap-2 sm:gap-20">
 		<article>
 			<b>Productos Top</b>
-			<ul>
-				<li><a href="#">Escalables</a></li>
-				<li><a href="#">Electricos</a></li>
-				<li><a href="#">Automotriz</a></li>
-				<li><a href="#">Industriales</a></li>
+			<ul class="mt-2 flex flex-col gap-1">
+				<FooterCategories client:load />
 			</ul>
 		</article>
 		<article>
