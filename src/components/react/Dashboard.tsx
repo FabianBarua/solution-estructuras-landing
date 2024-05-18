@@ -12,7 +12,6 @@ export function Dashboard() {
 	const [socialMedia, setSocialMedia] = useState([])
 
 	useEffect(() => {
-		console.log('effect')
 		const getSocialMedia = async () => {
 			const response = await fetch("/api/redes")
 			const data = await response.json()
@@ -82,7 +81,6 @@ export function Dashboard() {
 			changedSocialMedia,
 			newUrl
 		}) => {
-		console.log("Guardando")
 		const promise = fetch("/api/redes/update", {
 			method: "POST",
 			body: JSON.stringify({
@@ -95,7 +93,6 @@ export function Dashboard() {
 					setSocialMedia((prevState) => {
 						const index = prevState.findIndex((item) => item.id === data.product.id);
 						prevState[index] = data.product;
-						console.log(prevState[index])
 						return [...prevState];
 					});
 					return data;

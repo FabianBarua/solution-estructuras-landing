@@ -1,4 +1,3 @@
-// upload de imagenes a cloudinary
 import type { APIContext } from "astro"
 import { db, eq, SocialMedia } from "astro:db"
 
@@ -45,8 +44,6 @@ export const POST = async (context: APIContext) => {
 			.set(newValors)
 			.where(eq(SocialMedia.id, idVar))
 			.returning()
-
-		console.log(query)
 
 		return new Response(JSON.stringify({ message: "Producto actualizado", product: query[0] }), {
 			status: 200,

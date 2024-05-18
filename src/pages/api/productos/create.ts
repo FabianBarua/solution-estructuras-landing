@@ -78,8 +78,6 @@ export const POST = async (context: APIContext) => {
 	const imageUrl2 = allResponse[1]?.secure_url || null
 	const imageUrl3 = allResponse[2]?.secure_url || null
 
-	console.log(allResponse)
-
 	const productInserted = await db
 		.insert(Products)
 		.values({

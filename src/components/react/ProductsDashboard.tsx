@@ -76,7 +76,6 @@ export function ProductsDashboard() {
 										}
 										)
 
-										console.log(response.status)
 
 										if (!response.ok) {
 											throw new Error('No se pudo eliminar el producto')
