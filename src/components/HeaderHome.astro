@@ -4,13 +4,19 @@ import HomeArticle from "@components/HomeArticle.astro"
 import Logo from "@components/Logo.astro"
 import Whatsapp from "@icons/Whatsapp.astro"
 import { NavMenu } from "@react/NavMenu"
-import { db, sql } from "astro:db"
+import { Products, db, sql } from "astro:db"
 
 interface Props {
 	isHome?: boolean
 }
-const query = sql`SELECT * FROM products ORDER BY RANDOM() LIMIT 2`
-const { rows: products } = await db.run(query)
+//const query = sql`SELECT * FROM products ORDER BY RANDOM() LIMIT 2`
+//const { rows: products } = await db.run(query)
+
+const products = await db
+	.select()
+	.from(Products)
+	.orderBy(sql`RANDOM()`)
+	.limit(2)
 
 const { isHome }: Props = Astro.props
 ---
