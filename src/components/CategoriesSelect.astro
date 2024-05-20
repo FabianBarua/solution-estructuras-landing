@@ -27,7 +27,7 @@ const { categories } = await getCategories({
 			categories.map((category) => {
 				return (
 					<li class="relative z-50 h-min truncate rounded-lg bg-transparent text-center transition-all hover:bg-black/40">
-						<a href={`/productos/?${ALL_PARAMS.categories}=${category.id}`} class="">
+						<a href={`/productos/?${ALL_PARAMS.categories}=${category?.id}`} class="">
 							<p class="truncate p-1">{category.name}</p>
 						</a>
 					</li>

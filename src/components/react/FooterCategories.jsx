@@ -17,10 +17,10 @@ export const FooterCategories = () => {
 				return (
 					<Skeleton
 						key={`category-footer-${index}`}
-						isLoaded={category.id !== undefined}
+						isLoaded={category?.id !== undefined}
 						className=" flex  h-5 w-full items-center  rounded-sm py-2 leading-4"
 					>
-						<a href={`/productos/?categoria=${category.id}`}>{category.name}</a>
+						<a href={`/productos/?categoria=${category?.id}`}>{category.name}</a>
 					</Skeleton>
 				)
 			})}

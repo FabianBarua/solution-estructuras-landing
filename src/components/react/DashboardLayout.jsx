@@ -40,7 +40,7 @@ export const DashboardLayout = ({ url, children }) => {
 								{ALL_SECTIONS.map((section) => {
 									return (
 										<a
-											key={section.id}
+											key={section?.id}
 											href={section.url}
 											className={section.url === url ? selectedClass : unselectedClass}
 										>

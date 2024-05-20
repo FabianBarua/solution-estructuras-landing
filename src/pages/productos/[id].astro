@@ -11,13 +11,13 @@ import Search from "@icons/Search.astro"
 import { ImageCarrousel } from "@react/ImageCarrousel"
 import { Categories, Products, db, eq, isNull, sql } from "astro:db"
 import { motion } from "framer-motion"
-const id = parseInt(Astro.params.id) || 0
+const id = parseInt(Astro.params?.id) || 0
 
 const [data] = await db
 	.select()
 	.from(Products)
-	.leftJoin(Categories, eq(Products.categoryId, Categories.id))
-	.where(eq(Products.id, id))
+	.leftJoin(Categories, eq(Products.categoryId, Categories?.id))
+	.where(eq(Products?.id, id))
 
 const product = data?.Products
 const category = data?.Categories
@@ -36,7 +36,7 @@ const queryProductsCategories = db
 if (!category) {
 	queryProductsCategories.where(isNull(Products.categoryId))
 } else {
-	queryProductsCategories.where(eq(Products.categoryId, category.id))
+	queryProductsCategories.where(eq(Products.categoryId, category?.id))
 }
 
 const initialProducts = await queryProductsCategories

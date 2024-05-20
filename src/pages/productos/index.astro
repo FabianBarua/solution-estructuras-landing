@@ -13,12 +13,12 @@ const initialParams = {
 	categories: params.get(ALL_PARAMS.categories) || "",
 	search: params.get(ALL_PARAMS.search) || "",
 	page: params.get(ALL_PARAMS.page) || 1,
-	sortID: params.get(ALL_PARAMS.sortID) || ALL_SORTS[0].id,
+	sortID: params.get(ALL_PARAMS.sortID) || ALL_SORTS[0]?.id,
 }
 
 const queryCategories = await db.select().from(Categories)
 const initialCategories = queryCategories.map((category) => ({
-	id: category.id,
+	id: category?.id,
 	name: category.name,
 }))
 initialCategories.unshift({ id: null, name: "Sin categoria" })

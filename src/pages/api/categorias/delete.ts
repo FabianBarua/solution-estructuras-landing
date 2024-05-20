@@ -16,7 +16,7 @@ export const POST = async (context: APIContext) => {
 
 		await db.update(Products).set({ categoryId: null }).where(eq(Products.categoryId, id))
 
-		const res = await db.delete(Categories).where(eq(Categories.id, id)).returning()
+		const res = await db.delete(Categories).where(eq(Categories?.id, id)).returning()
 
 		if (res.length === 0) {
 			return new Response(JSON.stringify({ error: "Categoria no encontrada" }), {

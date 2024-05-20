@@ -7,7 +7,7 @@ export const Redes = () => {
 	const [isLoaded, setIsLoaded] = useState(false)
 
 	useEffect(() => {
-		if (redes[0].id === undefined) {
+		if (redes[0]?.id === undefined) {
 			fetch("/api/redes")
 				.then((res) => res.json())
 				.then((data) => {
@@ -23,7 +23,7 @@ export const Redes = () => {
 			{redes.map((red, index) => {
 				return (
 					<Skeleton
-						key={`redes-${red.id || index}`}
+						key={`redes-${red?.id || index}`}
 						isLoaded={isLoaded}
 						className=" size-8  rounded-full"
 					>

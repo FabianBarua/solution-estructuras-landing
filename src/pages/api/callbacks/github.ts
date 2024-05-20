@@ -1,7 +1,7 @@
 import { github, lucia } from "@/auth"
 import { OAuth2RequestError } from "arctic"
-import { generateId } from "lucia"
 import { db, eq, User } from "astro:db"
+import { generateId } from "lucia"
 
 import type { APIContext } from "astro"
 
@@ -24,14 +24,14 @@ export async function GET(context: APIContext): Promise<Response> {
 		})
 		const githubUser: GitHubUser = await githubUserResponse.json()
 		// Replace this with your own DB client.
-		//const existingUser = await db.table("user").where("github_id", "=", githubUser.id).get();
-		const existingUser = (await db.select().from(User).where(eq(User.github_id, githubUser.id))).at(
-			0
-		)
+		//const existingUser = await db.table("user").where("github_id", "=", githubUser?.id).get();
+		const existingUser = (
+			await db.select().from(User).where(eq(User.github_id, githubUser?.id))
+		).at(0)
 
 		if (existingUser) {
-			const session = await lucia.createSession(existingUser.id, {})
-			const sessionCookie = lucia.createSessionCookie(session.id)
+			const session = await lucia.createSession(existingUser?.id, {})
+			const sessionCookie = lucia.createSessionCookie(session?.id)
 			context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 			return context.redirect("/")
 		}
@@ -42,13 +42,13 @@ export async function GET(context: APIContext): Promise<Response> {
 		await db.insert(User).values([
 			{
 				id: userId,
-				github_id: githubUser.id,
+				github_id: githubUser?.id,
 				username: githubUser.login,
 			},
 		])
 
 		const session = await lucia.createSession(userId, {})
-		const sessionCookie = lucia.createSessionCookie(session.id)
+		const sessionCookie = lucia.createSessionCookie(session?.id)
 		context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 		return context.redirect("/")
 	} catch (e) {

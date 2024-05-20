@@ -85,7 +85,7 @@ export const columns = (setEdit: any, setDeleteProduct: any): ColumnDef<Product>
 
 								<DropdownMenuSeparator />
 								<DropdownMenuItem>
-									<a target="hblank" href={`/productos/${product.id}`}>Ver producto</a>
+									<a target="hblank" href={`/productos/${product?.id}`}>Ver producto</a>
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>

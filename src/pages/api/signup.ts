@@ -37,7 +37,7 @@ export async function POST(context: APIContext): Promise<Response> {
 
 	// Generate session
 	const session = await lucia.createSession(userId, {})
-	const sessionCookie = lucia.createSessionCookie(session.id)
+	const sessionCookie = lucia.createSessionCookie(session?.id)
 	context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 	return context.redirect("/")
 }

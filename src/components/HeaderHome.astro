@@ -46,16 +46,16 @@ const { isHome }: Props = Astro.props
 						<HomeArticle
 							visibility={100}
 							title={products[0]?.shortName?.toString()}
-							id={parseInt((products[0].id as string) || "0")}
-							image={products[0].imageUrl?.toString()}
+							id={parseInt((products[0]?.id as string) || "0")}
+							image={products[0]?.imageUrl?.toString()}
 						/>
 					</div>
 					<div class=" absolute right-0 rotate-[-4.45deg]">
 						<HomeArticle
 							visibility={100}
 							title={products[1]?.shortName?.toString()}
-							id={parseInt((products[1].id as string) || "0")}
-							image={products[1].imageUrl?.toString()}
+							id={parseInt((products[1]?.id as string) || "0")}
+							image={products[1]?.imageUrl?.toString()}
 						/>
 					</div>
 				</div>

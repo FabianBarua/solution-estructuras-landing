@@ -69,7 +69,7 @@ export function ProductsDashboard() {
 									const deletePromise = async () => {
 										const response = await fetch('/api/productos/delete', {
 											method: 'POST',
-											body: JSON.stringify({ id: deleteProduct.id }),
+											body: JSON.stringify({ id: deleteProduct?.id }),
 											headers: {
 												'Content-Type': 'application/json'
 											}
@@ -81,7 +81,7 @@ export function ProductsDashboard() {
 											throw new Error('No se pudo eliminar el producto')
 										}
 
-										setProductArrow(productArrow.filter(product => product.id !== deleteProduct.id))
+										setProductArrow(productArrow.filter(product => product?.id !== deleteProduct?.id))
 										setDeleteProduct(null)
 
 									}

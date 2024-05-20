@@ -29,14 +29,14 @@ export function Dashboard() {
 		const promise = fetch("/api/redes/update", {
 			method: "POST",
 			body: JSON.stringify({
-				id: changedSocialMedia.id,
+				id: changedSocialMedia?.id,
 				actived: newState
 			})
 		}).then(async (res) => {
 			if (res.ok) {
 				setSocialMedia((prevState) => {
 					return prevState.map((item) => {
-						if (item.id === changedSocialMedia.id) {
+						if (item?.id === changedSocialMedia?.id) {
 							return {
 								...item,
 								actived: newState
@@ -47,7 +47,7 @@ export function Dashboard() {
 				})
 				const data = await res.json().then((data) => {
 					setSocialMedia((prevState) => {
-						const index = prevState.findIndex((item) => item.id === data.product.id);
+						const index = prevState.findIndex((item) => item?.id === data.product?.id);
 						prevState[index] = data.product;
 						const inputElement = document.getElementById(data.product.name) as HTMLInputElement;
 						inputElement.value = data.product.url;
@@ -84,14 +84,14 @@ export function Dashboard() {
 		const promise = fetch("/api/redes/update", {
 			method: "POST",
 			body: JSON.stringify({
-				id: changedSocialMedia.id,
+				id: changedSocialMedia?.id,
 				url: newUrl
 			})
 		}).then(async (res) => {
 			if (res.ok) {
 				const data = await res.json().then((data) => {
 					setSocialMedia((prevState) => {
-						const index = prevState.findIndex((item) => item.id === data.product.id);
+						const index = prevState.findIndex((item) => item?.id === data.product?.id);
 						prevState[index] = data.product;
 						return [...prevState];
 					});
@@ -131,7 +131,7 @@ export function Dashboard() {
 						socialMedia.map((item, index) => {
 							return (
 								<Card
-									key={item.id}
+									key={item?.id}
 									className={cn(
 										"w-full",
 										"space-y-2",

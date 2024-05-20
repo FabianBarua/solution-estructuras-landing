@@ -69,7 +69,7 @@ export const POST = async (context: APIContext) => {
 			.set({
 				[key as string]: cloudinaryResponse.secure_url,
 			})
-			.where(eq(Products.id, productId))
+			.where(eq(Products?.id, productId))
 			.returning()
 
 		return new Response(

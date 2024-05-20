@@ -12,9 +12,9 @@ export const POST = async (context: APIContext) => {
 
 	try {
 		const body = await request.json()
-		const id = body.id
+		const id = body?.id
 
-		const res = await db.delete(Products).where(eq(Products.id, id)).returning()
+		const res = await db.delete(Products).where(eq(Products?.id, id)).returning()
 
 		if (res.length === 0) {
 			return new Response(JSON.stringify({ error: "Producto no encontrado" }), {

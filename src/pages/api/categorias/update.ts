@@ -28,7 +28,7 @@ export const POST = async (context: APIContext) => {
 			.set({
 				name,
 			})
-			.where(eq(Categories.id, id))
+			.where(eq(Categories?.id, id))
 			.returning()
 
 		if (result.length === 0) {

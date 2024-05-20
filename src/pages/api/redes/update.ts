@@ -13,7 +13,7 @@ export const POST = async (context: APIContext) => {
 
 		const body = await request.json()
 
-		const idVar = body.id || null
+		const idVar = body?.id || null
 		const urlVar = body.url || null
 		const activedVar = body.actived
 
@@ -42,7 +42,7 @@ export const POST = async (context: APIContext) => {
 		const query = await db
 			.update(SocialMedia)
 			.set(newValors)
-			.where(eq(SocialMedia.id, idVar))
+			.where(eq(SocialMedia?.id, idVar))
 			.returning()
 
 		return new Response(JSON.stringify({ message: "Producto actualizado", product: query[0] }), {

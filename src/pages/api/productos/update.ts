@@ -59,7 +59,7 @@ export const POST = async (context: APIContext) => {
 				imageUrl3: imageUrl3 === "undefined" ? null : imageUrl3,
 				sku,
 			})
-			.where(eq(Products.id, id))
+			.where(eq(Products?.id, id))
 
 		return new Response(JSON.stringify({ message: "Producto actualizado" }), {
 			status: 200,

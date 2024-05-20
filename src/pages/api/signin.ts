@@ -32,8 +32,8 @@ export async function POST(context: APIContext): Promise<Response> {
 		)
 	}
 
-	const session = await lucia.createSession(foundUser.id, {})
-	const sessionCookie = lucia.createSessionCookie(session.id)
+	const session = await lucia.createSession(foundUser?.id, {})
+	const sessionCookie = lucia.createSessionCookie(session?.id)
 	context.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
 
 	return new Response(JSON.stringify({ message: "Sesión iniciada." }))

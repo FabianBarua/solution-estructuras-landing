@@ -36,7 +36,7 @@ const HeaderSearch = ({ setSort, handleSearch, inputValue, sortValue }) => {
 			>
 				<SelectSection className=" text-white brand ">
 					{ALL_SORTS.map((sort) => (
-						<SelectItem className="data-[hover=true]:bg-customOrange-600" key={sort.id} color="x">
+						<SelectItem className="data-[hover=true]:bg-customOrange-600" key={sort?.id} color="x">
 							{sort.name}
 						</SelectItem>
 					))}
@@ -56,13 +56,13 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 		} else if (!a.active && b.active) {
 			return 1
 		} else {
-			if (a.id === null) {
+			if (a?.id === null) {
 				return -1
 			}
-			if (b.id === null) {
+			if (b?.id === null) {
 				return 1
 			}
-			return a.id - b.id
+			return a?.id - b?.id
 		}
 	})
 
@@ -70,7 +70,7 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 		const activeCategories =
 			sortedCategories
 				.filter((category) => category.active)
-				.map((category) => (category.id === null ? "null" : category.id))
+				.map((category) => (category?.id === null ? "null" : category?.id))
 				.join("-") || ""
 		if (activeCategories !== "") {
 			const newPage = firstRender.current ? null : 1
@@ -91,7 +91,7 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 
 	const toggleClick = ({ id }) => {
 		const newCategories = sortedCategories.map((category) => {
-			if (category.id === id) {
+			if (category?.id === id) {
 				return {
 					...category,
 					active: !category.active,
@@ -116,7 +116,7 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 		>
 			<ul className=" placecenter mt-4 grid grid-cols-[repeat(auto-fit,_minmax(8rem,_1fr))]  place-content-center place-items-center gap-2 place-self-center   ">
 				{sortedCategories.map((category) => (
-					<li key={category.id} className=" relative w-full">
+					<li key={category?.id} className=" relative w-full">
 						<button
 							onClick={() => {
 								toggleClick({ id: category?.id })
@@ -129,7 +129,7 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 									<motion.div
 										initial={{ scale: 0 }}
 										animate={{ scale: 1 }}
-										key={category.id}
+										key={category?.id}
 										className="  flex size-5 items-center justify-center rounded-full  border border-customOrange-500 bg-customBlue-600 pb-[2px] leading-[1px] text-customOrange-500"
 									>
 										×
@@ -184,7 +184,7 @@ const ProductsDisplay = ({ products }) => {
 					<li key={i} className=" flex  h-full w-full items-center justify-center transition-all">
 						<ProductCard
 							index={i + 1}
-							id={product.id}
+							id={product?.id}
 							shortName={product.shortName}
 							imageUrl={product.imageUrl}
 							price={product.price}
@@ -259,7 +259,7 @@ export const ProductsSection = ({ initialCategories, initialParams, initialProdu
 		setParams((prevParams) => {
 			const newParams = {
 				...prevParams,
-				sortID: sort.id,
+				sortID: sort?.id,
 			}
 			return newParams
 		})
@@ -300,7 +300,7 @@ export const ProductsSection = ({ initialCategories, initialParams, initialProdu
 
 	const initialCategoriesActives = initialCategories.map((category) => ({
 		...category,
-		active: initialParams?.categories?.split("-").includes(category.id?.toString() || "null"),
+		active: initialParams?.categories?.split("-").includes(category?.id?.toString() || "null"),
 	}))
 	const { products, getProducts, info } = useProducts({
 		initialProducts,

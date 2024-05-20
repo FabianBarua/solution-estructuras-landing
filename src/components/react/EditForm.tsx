@@ -91,7 +91,7 @@ const uploadProductImage = async (formData: FormData, productImages: { imageUrl:
 
 		setProductArrow(
 			(prevProducts) => {
-				const index = prevProducts.findIndex((product: Product) => product.id === parseInt(formData.get("id") as string));
+				const index = prevProducts.findIndex((product: Product) => product?.id === parseInt(formData.get("id") as string));
 				const newProducts = [...prevProducts];
 
 				newProducts[index] = {
@@ -181,7 +181,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 
 		setProductArrow((prevProducts: Product[]) => {
 			return prevProducts.map((prevProduct: Product) => {
-				if (prevProduct.id === newProduct.id) {
+				if (prevProduct?.id === newProduct?.id) {
 					return newProduct;
 				}
 				return prevProduct;
@@ -193,7 +193,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 		// call api to save the product
 
 		const formData = new FormData()
-		formData.append("id", newProduct.id.toString())
+		formData.append("id", newProduct?.id.toString())
 		formData.append("name", newProduct.name)
 		formData.append("shortName", newProduct.shortName)
 		formData.append("price", newProduct.price.toString())
@@ -264,7 +264,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 		setProductImages(finalImages)
 
 		const formData = new FormData()
-		formData.append("id", product.id.toString())
+		formData.append("id", product?.id.toString())
 		formData.append("name", product.name)
 		formData.append("shortName", product.shortName)
 		formData.append("price", product.price.toString())
@@ -284,7 +284,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 
 		setProductArrow(
 			(prevProducts) => {
-				const index = prevProducts.findIndex((product: Product) => product.id === parseInt(formData.get("id") as string));
+				const index = prevProducts.findIndex((product: Product) => product?.id === parseInt(formData.get("id") as string));
 				const newProducts = [...prevProducts];
 
 				newProducts[index] = {
@@ -315,7 +315,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 			const formData = new FormData()
 			formData.append("file", file)
 			formData.append("key", key)
-			formData.append("id", product.id.toString())
+			formData.append("id", product?.id.toString())
 
 			if (!file) {
 				return
@@ -583,7 +583,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 											{
 												categorias.map((categoria: { id: { toString: () => string }; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal }, index: Key) => {
 													return (
-														<SelectItem key={index} value={categoria.id.toString()}>{categoria.name}</SelectItem>
+														<SelectItem key={index} value={categoria?.id.toString()}>{categoria.name}</SelectItem>
 													)
 												})
 											}

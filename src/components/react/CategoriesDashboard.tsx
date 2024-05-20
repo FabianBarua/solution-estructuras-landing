@@ -42,7 +42,7 @@ export const CategoriesDashboard = () => {
 
 	const handleDeleteCategory = () => {
 		const formData = new FormData()
-		formData.append("id", deleteCategory.id)
+		formData.append("id", deleteCategory?.id)
 
 		const promise = fetch("/api/categorias/delete", {
 			method: "POST",
@@ -52,7 +52,7 @@ export const CategoriesDashboard = () => {
 				setDeleteCategory(null)
 				throw new Error(data.error)
 			}
-			setCategories(categories.filter((c) => c.id !== deleteCategory.id))
+			setCategories(categories.filter((c) => c?.id !== deleteCategory?.id))
 			setDeleteCategory(null)
 		})
 
@@ -68,7 +68,7 @@ export const CategoriesDashboard = () => {
 
 	const handleRenameCategory = () => {
 		const formData = new FormData()
-		formData.append("id", renameCategory.id)
+		formData.append("id", renameCategory?.id)
 		formData.append("name", renameCategory.name)
 		const promise = fetch("/api/categorias/update", {
 			method: "POST",
@@ -79,7 +79,7 @@ export const CategoriesDashboard = () => {
 				throw new Error(data.error)
 			}
 			setCategories(categories.map((c) => {
-				if (c.id === renameCategory.id) {
+				if (c?.id === renameCategory?.id) {
 					return data.category
 				}
 				return c
@@ -206,7 +206,7 @@ export const CategoriesDashboard = () => {
 					{
 						categories.map((category) => {
 							return (
-								<div key={category.id} className="flex last:border-0 hover:bg-muted/30 bg-transparent transition-colors py-2 px-5 border-b items-center justify-between ">
+								<div key={category?.id} className="flex last:border-0 hover:bg-muted/30 bg-transparent transition-colors py-2 px-5 border-b items-center justify-between ">
 									<div className="flex items-center">
 										<p >{category.name}</p>
 									</div>

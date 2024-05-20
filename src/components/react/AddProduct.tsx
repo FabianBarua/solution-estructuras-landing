@@ -363,7 +363,7 @@ export const AddProduct = ({ categorias, setAddProduct, setProductArrow }: {
 												{
 													categorias.map((categoria: { id: { toString: () => string }; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal }, index: Key) => {
 														return (
-															<SelectItem key={index} value={categoria.id.toString()}>{categoria.name}</SelectItem>
+															<SelectItem key={index} value={categoria?.id.toString()}>{categoria.name}</SelectItem>
 														)
 													})
 												}
