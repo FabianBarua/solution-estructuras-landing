@@ -108,5 +108,26 @@ const { title, isHome } = Astro.props
 				}
 			})
 		</script>
+
+		<script>
+			const CallToWhatsapp = document.querySelectorAll("#CallToWhatsapp")
+			let whatsapp = {}
+			fetch("/api/redes")
+				.then((res) => res.json())
+				.then((data) => {
+					whatsapp = data.redes.find((red) => red.name === "Whatsapp")
+
+					CallToWhatsapp.forEach((element) => {
+						;(element as HTMLAnchorElement).href = (whatsapp as { url: string }).url
+					})
+				})
+
+			document.addEventListener("astro:before-swap", (ev) => {
+				const CallToWhatsapp = ev.newDocument.querySelectorAll("#CallToWhatsapp")
+				CallToWhatsapp.forEach((element) => {
+					;(element as HTMLAnchorElement).href = (whatsapp as { url: string }).url
+				})
+			})
+		</script>
 	</body>
 </html>

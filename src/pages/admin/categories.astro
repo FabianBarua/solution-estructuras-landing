@@ -1,0 +1,17 @@
+---
+import { CategoriesDashboard } from "@/components/react/CategoriesDashboard.tsx"
+import { DashboardLayout } from "@/components/react/DashboardLayout"
+import AdminLayout from "@/layouts/AdminLayout.astro"
+
+const user = Astro.locals.user
+
+if (!user) {
+	return Astro.redirect("/login")
+}
+---
+
+<AdminLayout title="Products">
+	<DashboardLayout client:load url={"/admin/categories"}>
+		<CategoriesDashboard client:only />
+	</DashboardLayout>
+</AdminLayout>

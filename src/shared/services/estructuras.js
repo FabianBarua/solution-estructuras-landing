@@ -50,10 +50,10 @@ export const getParams = () => {
 export async function getProductsWithParams({ params, url = null }) {
 	const urlSearchParams = new URLSearchParams()
 	urlSearchParams.append(ALL_PARAMS.search, params?.search)
-	urlSearchParams.append(ALL_PARAMS.categories, params?.categories)
+	urlSearchParams.append(ALL_PARAMS.categories, params?.categories  )
 	urlSearchParams.append(ALL_PARAMS.page, params?.page)
 	urlSearchParams.append(ALL_PARAMS.sortID, params?.sortID)
-
+	
 	const API_URL = `${url || ""}/api/productos?${urlSearchParams.toString()}`
 
 	const res = await fetch(API_URL)

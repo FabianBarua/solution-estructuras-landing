@@ -30,7 +30,8 @@ export const POST = async (context: APIContext) => {
 	const price = parseFloat(formData.get("price") as string)
 	const description = formData.get("description") as string
 	const status = formData.get("status") as string
-	const categoryId = parseInt(formData.get("categoryId") as string)
+	const categoryId =
+		formData.get("categoryId") === "null" ? null : parseInt(formData.get("categoryId") as string)
 	const imageB64 = formData.get("imageB64") as string
 	const imageB64_2 = formData.get("imageB64_2") as string
 	const imageB64_3 = formData.get("imageB64_3") as string

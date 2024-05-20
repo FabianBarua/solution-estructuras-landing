@@ -1,7 +1,6 @@
 import { ALL_PARAMS, ALL_SORTS, MAX_PER_PAGE, mockProductsResponse } from "@/shared/constants"
 import type { APIRoute } from "astro"
-import { and, asc, count, db, desc, inArray, like, Products } from "astro:db"
-
+import { asc, count, db, desc, inArray, isNull, like, Products, sql } from "astro:db"
 
 const validateParams = ({ search, page, listOfCategoriesIDS }) => {
 	if (isNaN(page)) {
@@ -40,18 +39,35 @@ const getPrevAndNextPage = (page: number, totalQuery: number) => {
 
 const getProducts = async ({ search, listOfCategoriesIDS, page, sortID }) => {
 	try {
+		const categories = listOfCategoriesIDS?.filter((id) => id !== null)
 		const searchByName = like(Products.name, `%${search}%`)
-		const searchByCategory = inArray(Products.categoryId, listOfCategoriesIDS)
-		const whereOptions =
-			listOfCategoriesIDS?.length > 0 ? and(searchByName, searchByCategory) : searchByName
+
+		const whereOptions = sql`
+			${searchByName}
+			
+			${
+				categories?.length > 0 || listOfCategoriesIDS?.includes(null)
+					? sql` 
+					AND
+						(
+							${categories.length > 0 ? inArray(Products.categoryId, categories as number[]) : sql`false`}
+							OR
+							${listOfCategoriesIDS.includes(null) ? isNull(Products.categoryId) : sql`false`}
+						)
+					`
+					: sql``
+			}
+
+			`
+
 		const sort = ALL_SORTS[sortID] || ALL_SORTS[0]
 
 		const querySearch = db
 			.select()
 			.from(Products)
-			.where(whereOptions)
 			.limit(MAX_PER_PAGE)
 			.offset((page - 1) * MAX_PER_PAGE)
+			.where(whereOptions)
 
 		if (sort.type === "price") {
 			if (sort.inverted) {
@@ -72,6 +88,7 @@ const getProducts = async ({ search, listOfCategoriesIDS, page, sortID }) => {
 		const queryCount = db.select({ count: count() }).from(Products).where(whereOptions)
 
 		const [products, [{ count: totalQuery }]] = await Promise.all([querySearch, queryCount])
+
 		return { products, totalQuery }
 	} catch (error) {
 		throw new Error("Error al obtener los productos")
@@ -82,11 +99,19 @@ export const GET: APIRoute = async ({ request }) => {
 	try {
 		const url = new URL(request.url)
 		const paramsURL = url.searchParams
-		
+
 		const search = paramsURL.get(ALL_PARAMS.search) || ""
 		const listOfCategoriesIDS =
 			paramsURL.get(ALL_PARAMS.categories) !== ""
-				? paramsURL.get(ALL_PARAMS.categories)?.split("-")?.map(Number)
+				? paramsURL
+						.get(ALL_PARAMS.categories)
+						?.split("-")
+						?.map((id) => {
+							if (id === "null") {
+								return null
+							}
+							return parseInt(id)
+						})
 				: null
 
 		const sortID = parseInt(paramsURL.get(ALL_PARAMS.sortID) || "0") || 0

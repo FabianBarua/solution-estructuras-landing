@@ -3,6 +3,7 @@ import { getProductsWithParams } from "../services/estructuras"
 
 export function useProducts({ params, initialProducts }) {
 	const [responseProducts, setResponseProducts] = useState(initialProducts)
+
 	const getProducts = async () => {
 		const products = await getProductsWithParams({ params })
 		setResponseProducts(products)

@@ -16,7 +16,12 @@ const initialParams = {
 	sortID: params.get(ALL_PARAMS.sortID) || ALL_SORTS[0].id,
 }
 
-const initialCategories = await db.select().from(Categories)
+const queryCategories = await db.select().from(Categories)
+const initialCategories = queryCategories.map((category) => ({
+	id: category.id,
+	name: category.name,
+}))
+initialCategories.unshift({ id: null, name: "Sin categoria" })
 const initialProducts = await getProductsWithParams({
 	params: initialParams,
 	url: Astro.url.origin,

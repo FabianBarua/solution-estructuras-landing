@@ -1,6 +1,6 @@
 import { ALL_PARAMS } from "@/shared/constants"
 import type { APIRoute } from "astro"
-import { db, Categories } from "astro:db"
+import { Categories, db } from "astro:db"
 
 const mockCategoriesResponse = {
 	info: {
@@ -14,7 +14,6 @@ const mockCategoriesResponse = {
 export const GET: APIRoute = async ({ request }) => {
 	const url = new URL(request.url)
 	const paramsURL = url.searchParams
-
 	try {
 		const limit = parseInt(paramsURL.get(ALL_PARAMS.limit)) || null
 

@@ -1,23 +1,22 @@
 ---
 import CallToAction from "@/components/CallToAction.astro"
-import GridResponsive from "@/components/GridResponsive.astro"
-import ProductCard from "@/components/ProductCard.astro"
 import SectionResize from "@/components/SectionResize.astro"
 import ShowMoreButton from "@/components/ShowMoreButton.astro"
 import ShowMoreIcon from "@/components/icons/ShowMoreIcon.astro"
 import Whatsapp from "@/components/icons/Whatsapp.astro"
+import { ProductCarousel } from "@/components/react/Carousel"
 import Layout from "@/layouts/Layout.astro"
 import { ALL_PARAMS } from "@/shared/constants"
 import Search from "@icons/Search.astro"
 import { ImageCarrousel } from "@react/ImageCarrousel"
-import { Categories, Products, db, eq } from "astro:db"
+import { Categories, Products, db, eq, isNull, sql } from "astro:db"
 import { motion } from "framer-motion"
 const id = parseInt(Astro.params.id) || 0
 
 const [data] = await db
 	.select()
 	.from(Products)
-	.innerJoin(Categories, eq(Products.categoryId, Categories.id))
+	.leftJoin(Categories, eq(Products.categoryId, Categories.id))
 	.where(eq(Products.id, id))
 
 const product = data?.Products
@@ -27,20 +26,20 @@ const productImages = [product?.imageUrl, product?.imageUrl2, product?.imageUrl3
 	(imageUrl) => imageUrl !== null
 )
 
-const initialProducts = await db
+// get todos los productos con categoria null
+const queryProductsCategories = db
 	.select()
 	.from(Products)
-	.where(eq(Products.categoryId, category?.id || 1))
+	.limit(10)
+	.orderBy(sql`RANDOM()`)
 
-const random5 = []
-
-for (let i = 0; i < 5; ) {
-	const product = initialProducts[Math.floor(Math.random() * initialProducts.length)]
-	if (!random5.includes(product)) {
-		random5.push(product)
-		i++
-	}
+if (!category) {
+	queryProductsCategories.where(isNull(Products.categoryId))
+} else {
+	queryProductsCategories.where(eq(Products.categoryId, category.id))
 }
+
+const initialProducts = await queryProductsCategories
 
 if (!product) {
 	return Astro.redirect("/")
@@ -81,10 +80,10 @@ if (!product) {
 						)
 					}
 					<a
-						href={`/productos/?${ALL_PARAMS.categories}=${category?.id}`}
+						href={`/productos/?${ALL_PARAMS.categories}=${category?.id || "null"}`}
 						class="flex items-center justify-center rounded-lg border border-customOrange-500 bg-customBlue-600 px-2 py-1 leading-3 text-customOrange-500"
 					>
-						{category?.name}
+						{category?.name || "Sin categoría"}
 					</a>
 				</div>
 				{
@@ -93,7 +92,7 @@ if (!product) {
 					)
 				}
 				<p class="mt-3 text-xl">{product.price}. Gs</p>
-				<CallToAction color="orange" href="#">
+				<CallToAction id="CallToWhatsapp" color="orange" href="#">
 					Comprar en Whatsapp
 					<Whatsapp />
 				</CallToAction>
@@ -107,14 +106,6 @@ if (!product) {
 			</ShowMoreButton>
 		</div>
 
-		<GridResponsive>
-			{
-				random5.map(({ id, shortName, imageUrl }) => (
-					<li class=" h-44 w-full min-w-32 max-w-44  ">
-						<ProductCard id={id} shortName={shortName} imageUrl={imageUrl} />
-					</li>
-				))
-			}
-		</GridResponsive>
+		<ProductCarousel client:load initialProductsCarousel={initialProducts} />
 	</SectionResize>
 </Layout>

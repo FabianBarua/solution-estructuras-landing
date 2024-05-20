@@ -122,6 +122,14 @@
 	.mask {
 		mask-image: linear-gradient(black 70%, transparent 100%);
 	}
+	.mask-horizontal {
+		mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+	}
+	@media (max-width: 640px) {
+		.mask-horizontal {
+			mask-image: linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+		}
+	}
 }
 
 @layer base {

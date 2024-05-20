@@ -163,6 +163,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 		const description = inputDescription.current.value
 		const status = statusSelect.current
 		const categoryId = categoriaSelect.current
+
 		const sku = inputSku.current.value
 		const newProduct = {
 			...product,
@@ -198,7 +199,8 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 		formData.append("price", newProduct.price.toString())
 		formData.append("description", newProduct.description)
 		formData.append("status", newProduct.status)
-		formData.append("categoryId", newProduct.categoryId.toString())
+		formData.append("categoryId", newProduct.categoryId?.toString() || null)
+
 		formData.append("imageUrl", newProduct.imageUrl || undefined)
 		formData.append("imageUrl2", newProduct.imageUrl2 || undefined)
 		formData.append("imageUrl3", newProduct.imageUrl3 || undefined)
@@ -268,7 +270,7 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 		formData.append("price", product.price.toString())
 		formData.append("description", product.description)
 		formData.append("status", product.status)
-		formData.append("categoryId", product.categoryId.toString())
+		formData.append("categoryId", product.categoryId?.toString() || null)
 		formData.append("imageUrl", finalImages.imageUrl || undefined)
 		formData.append("imageUrl2", finalImages.imageUrl2 || undefined)
 		formData.append("imageUrl3", finalImages.imageUrl3 || undefined)
@@ -566,16 +568,18 @@ export const EditForm = ({ product, setEditProduct, setProductArrow, categorias 
 							<div className="grid gap-6">
 								<div className="grid gap-3">
 									<Label htmlFor="status">Categoria</Label>
-									<Select defaultValue={product.categoryId.toString()}
+									<Select defaultValue={product?.categoryId?.toString() || null}
 										onValueChange={
 											(value) => {
-												categoriaSelect.current = parseInt(value) as number
+												categoriaSelect.current = value ? parseInt(value) : null
 											}
 										} >
 										<SelectTrigger id="status" aria-label="Seleccionar una categoria">
 											<SelectValue placeholder="Selecciona una categoria" />
 										</SelectTrigger>
 										<SelectContent>
+											<SelectItem value={null}>Sin categoria</SelectItem>
+
 											{
 												categorias.map((categoria: { id: { toString: () => string }; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal }, index: Key) => {
 													return (

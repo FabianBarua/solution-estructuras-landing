@@ -1,4 +1,4 @@
-import { Home, Package } from "lucide-react"
+import { Home, Package, Tags } from "lucide-react"
 
 export const mockProductsResponse = {
 	info: {
@@ -135,4 +135,10 @@ export const ALL_SECTIONS = [
 		icon: Package,
 		url: "/admin/products",
 	},
+	{
+		id: 2,
+		name: "Categorias",
+		icon: Tags,
+		url: "/admin/categories",
+	}
 ]

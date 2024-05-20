@@ -11,7 +11,7 @@ import { Redes } from "@react/Redes"
 	<div>
 		<a href="/"> <Logo /></a>
 		<div class="mt-2 flex h-8 gap-2">
-			<Redes client:load />
+			<Redes transition:persist client:load />
 		</div>
 		<p class="mt-4 w-full text-balance text-sm font-normal leading-4 opacity-35 sm:mt-10">
 			Las fotos son para fines ilustrativos. Las especificaciones técnicas y descripciones están
@@ -22,7 +22,7 @@ import { Redes } from "@react/Redes"
 		<article>
 			<b>Productos Top</b>
 			<ul class="mt-2 flex flex-col gap-1">
-				<FooterCategories client:load />
+				<FooterCategories transition:persist client:load />
 			</ul>
 		</article>
 		<article>

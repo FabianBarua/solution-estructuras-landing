@@ -7,20 +7,26 @@ export const Redes = () => {
 	const [isLoaded, setIsLoaded] = useState(false)
 
 	useEffect(() => {
-		fetch("/api/redes")
-			.then((res) => res.json())
-			.then((data) => {
-				const newRedes = [...data.redes].filter((red) => red.actived)
-				setRedes(newRedes)
-				setIsLoaded(true)
-			})
+		if (redes[0].id === undefined) {
+			fetch("/api/redes")
+				.then((res) => res.json())
+				.then((data) => {
+					const newRedes = [...data.redes].filter((red) => red.actived)
+					setRedes(newRedes)
+					setIsLoaded(true)
+				})
+		}
 	}, [])
 
 	return (
 		<>
 			{redes.map((red, index) => {
 				return (
-					<Skeleton key={red.id} isLoaded={isLoaded} className=" size-8  rounded-full">
+					<Skeleton
+						key={`redes-${red.id || index}`}
+						isLoaded={isLoaded}
+						className=" size-8  rounded-full"
+					>
 						<a
 							href={red.url}
 							target="_blank"

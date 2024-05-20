@@ -91,8 +91,37 @@ export default async function () {
 	})
 
 	await db.insert(Categories).values(categories)
-
 	await db.insert(Products).values(productsArray)
+	await db.insert(Products).values([
+		{
+			id: 100,
+			name: "Producto sin imagen",
+			shortName: "Producto sin imagen",
+			price: 1000,
+			status: "Activo",
+			description: "Producto sin imagen",
+			imageUrl: null,
+			imageUrl2: null,
+			imageUrl3: null,
+			imageAlt: null,
+			categoryId: null,
+			showAtHome: false,
+		},
+		{
+			id: 101,
+			name: "Producto con imagen",
+			shortName: "Producto con imagen",
+			price: 1000,
+			status: "Activo",
+			description: "Producto con imagen",
+			imageUrl: "/images/1.jpg",
+			imageUrl2: "/images/2.jpg",
+			imageUrl3: "/images/3.jpg",
+			imageAlt: "Producto con imagen",
+			categoryId: null,
+			showAtHome: false,
+		},
+	])
 
 	await db.insert(SocialMedia).values([
 		{

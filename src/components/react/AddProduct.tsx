@@ -77,15 +77,14 @@ export const AddProduct = ({ categorias, setAddProduct, setProductArrow }: {
 			imageB64_3
 		}
 
-		// las imagenes son de tipo 
-
+		// las imagenes son de tipo s
 		const formData = new FormData()
 		formData.append("name", newProduct.name)
 		formData.append("shortName", newProduct.shortName)
 		formData.append("price", newProduct.price.toString())
 		formData.append("description", newProduct.description)
 		formData.append("status", newProduct.status)
-		formData.append("categoryId", newProduct.categoryId?.toString() || undefined)
+		formData.append("categoryId", newProduct.categoryId?.toString() || null)
 		formData.append("imageB64", newProduct.imageB64 || undefined)
 		formData.append("imageB64_2", newProduct.imageB64_2 || undefined)
 		formData.append("imageB64_3", newProduct.imageB64_3 || undefined)
@@ -348,6 +347,7 @@ export const AddProduct = ({ categorias, setAddProduct, setProductArrow }: {
 									<div className="grid gap-3">
 										<Label htmlFor="status">Categoria</Label>
 										<Select
+											defaultValue={null}
 											onValueChange={
 												(value) => {
 													categoriaSelect.current = value
@@ -358,6 +358,8 @@ export const AddProduct = ({ categorias, setAddProduct, setProductArrow }: {
 												<SelectValue placeholder="Selecciona una categoria" />
 											</SelectTrigger>
 											<SelectContent>
+												<SelectItem value={null}>Sin categoria</SelectItem>
+
 												{
 													categorias.map((categoria: { id: { toString: () => string }; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal }, index: Key) => {
 														return (

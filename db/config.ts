@@ -22,7 +22,7 @@ const Products = defineTable({
 		imageUrl2: column.text({ optional: true }),
 		imageUrl3: column.text({ optional: true }),
 		imageAlt: column.text({ optional: true }),
-		categoryId: column.number({ optional: false, references: () => Categories.columns.id }),
+		categoryId: column.number({ optional: true, references: () => Categories.columns.id }),
 		showAtHome: column.boolean({ optional: true, default: false }),
 	},
 })

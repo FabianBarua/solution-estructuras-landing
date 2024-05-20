@@ -1,14 +1,14 @@
-import { Input, Select, SelectSection, SelectItem, Image, Pagination } from "@nextui-org/react"
+import { Image, Input, Pagination, Select, SelectItem, SelectSection } from "@nextui-org/react"
 
-import "@react/ProductsSection.css"
-import { SearchIcon } from "@icons/SearchIcon"
-import { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
-import { MagicMotion } from "react-magic-motion"
-import { GridResponsive } from "@react/GridResponsive"
-import { Arrow } from "@react/Arrow"
-import { useProducts } from "@/shared/hooks/useProducts"
 import { ALL_PARAMS, ALL_SORTS } from "@/shared/constants"
+import { useProducts } from "@/shared/hooks/useProducts"
+import { SearchIcon } from "@icons/SearchIcon"
+import { Arrow } from "@react/Arrow"
+import { GridResponsive } from "@react/GridResponsive"
+import "@react/ProductsSection.css"
+import { motion } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { MagicMotion } from "react-magic-motion"
 import { useDebouncedCallback } from "use-debounce"
 
 const HeaderSearch = ({ setSort, handleSearch, inputValue, sortValue }) => {
@@ -34,9 +34,11 @@ const HeaderSearch = ({ setSort, handleSearch, inputValue, sortValue }) => {
 				}}
 				defaultSelectedKeys={sortValue || 0}
 			>
-				<SelectSection className="text-white  brand" color="primary">
+				<SelectSection className=" text-white brand ">
 					{ALL_SORTS.map((sort) => (
-						<SelectItem key={sort.id}>{sort.name}</SelectItem>
+						<SelectItem className="data-[hover=true]:bg-customOrange-600" key={sort.id} color="x">
+							{sort.name}
+						</SelectItem>
 					))}
 				</SelectSection>
 			</Select>
@@ -54,6 +56,12 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 		} else if (!a.active && b.active) {
 			return 1
 		} else {
+			if (a.id === null) {
+				return -1
+			}
+			if (b.id === null) {
+				return 1
+			}
 			return a.id - b.id
 		}
 	})
@@ -62,7 +70,7 @@ const CategoryMoreSearched = ({ initialCategories, setCategoriesParams }) => {
 		const activeCategories =
 			sortedCategories
 				.filter((category) => category.active)
-				.map((category) => category.id)
+				.map((category) => (category.id === null ? "null" : category.id))
 				.join("-") || ""
 		if (activeCategories !== "") {
 			const newPage = firstRender.current ? null : 1
@@ -237,9 +245,9 @@ export const ProductsSection = ({ initialCategories, initialParams, initialProdu
 			currentParams.set(ALL_PARAMS.page, params.page)
 		}
 
-		const newUrl = `${window.location.pathname}?${currentParams.toString()}`
+		const newUrl = `${window.location.pathname}?${currentParams?.toString()}`
 
-		if (window.location.search !== currentParams.toString()) {
+		if (window.location.search !== currentParams?.toString()) {
 			window.history.pushState({}, "", newUrl)
 		}
 
@@ -292,9 +300,8 @@ export const ProductsSection = ({ initialCategories, initialParams, initialProdu
 
 	const initialCategoriesActives = initialCategories.map((category) => ({
 		...category,
-		active: initialParams?.categories?.split("-").includes(category.id.toString()),
+		active: initialParams?.categories?.split("-").includes(category.id?.toString() || "null"),
 	}))
-
 	const { products, getProducts, info } = useProducts({
 		initialProducts,
 		params,

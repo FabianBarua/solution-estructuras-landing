@@ -22,7 +22,7 @@ const Arrow = (props) => (
 export const ProductCard = ({ id, shortName, imageUrl }) => {
 	return (
 		<article className=" relative size-full overflow-hidden rounded-[34px]">
-			<Image src={imageUrl} className="  size-[11.5rem] object-cover" />
+			<Image src={imageUrl} className=" pointer-events-none size-[11.5rem] object-cover" />
 			<div className=" absolute bottom-0 left-0 right-0 top-0 z-10 size-full  bg-[linear-gradient(to_top,_var(--tw-gradient-stops)60%)]  from-black/80" />
 			<a
 				className="absolute -right-[1.2rem] -top-[1.2rem] z-20 flex size-[70px] items-end rounded-bl-[35px] rounded-br-[30px] rounded-tl-[30px] bg-customOrange-500 p-4 transition-all hover:scale-110 hover:bg-customOrange-400"
