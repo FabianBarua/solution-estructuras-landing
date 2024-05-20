@@ -1,7 +1,3 @@
-TODO
+# Solution Estructuras
 
-[x] SINCRONIZAR FOOTER CON DB
-[x] MOSTRAR SKU EN PRODUCTOS
-
-- HACER BACKEND categorias
-- AGREGAR NUMERO PARA REDIRECCION DE WHATSAPP
+Una pagina web para administrar productos.
