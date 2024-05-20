@@ -1,4 +1,4 @@
-import { db, sql } from "astro:db"
+import { db, Products, sql } from "astro:db"
 
 export const GET = async (request) => {
 	const url = new URL(request.url)
@@ -11,8 +11,11 @@ export const GET = async (request) => {
 		return new Response(JSON.stringify([]))
 	}
 
-	const structuredQuery = sql`SELECT * FROM products ORDER BY RANDOM() LIMIT ${parsedLimit}`
-	const productos = await db.run(structuredQuery)
+	const productos = await db
+		.select()
+		.from(Products)
+		.orderBy(sql`RANDOM()`)
+		.limit(parsedLimit)
 
-	return new Response(JSON.stringify(productos.rows))
+	return new Response(JSON.stringify(productos))
 }
