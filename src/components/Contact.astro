@@ -3,6 +3,7 @@ import PurpleButton from "@/components/CallToAction.astro"
 import Whatsapp from "@icons/Whatsapp.astro"
 import ContactSquere from "./ContactSquere.astro"
 import SectionResize from "./SectionResize.astro"
+import { EmailButton } from "./react/EmailButton"
 ---
 
 <section id="contacto" class="mt-12 flex justify-center bg-customOrange-500 p-6 text-white">
@@ -12,10 +13,13 @@ import SectionResize from "./SectionResize.astro"
 				<b>Comunicate con nosotros al Whatsapp!</b>
 			</h4>
 			<p class="mt-3 leading-5">Para un mejor acesoramiento contactanos con el boton de abajo.</p>
-			<PurpleButton id="CallToWhatsapp" href="#">
-				Escribinos
-				<Whatsapp />
-			</PurpleButton>
+			<div class="flex flex-wrap gap-2">
+				<PurpleButton id="CallToWhatsapp" href="#">
+					Escribinos
+					<Whatsapp />
+				</PurpleButton>
+				<EmailButton client:load />
+			</div>
 		</div>
 		<div class="hidden size-72 rounded-[3rem] bg-customOrange-600 p-6 sm:block">
 			<ContactSquere />

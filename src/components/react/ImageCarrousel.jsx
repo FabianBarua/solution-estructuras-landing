@@ -59,7 +59,7 @@ export const ImageCarrousel = ({ productImages: images }) => {
 				<PhotoView key={index} src={item}>
 					{index < 1 ? (
 						<img
-							className="h-full w-full cursor-pointer rounded-[3rem] object-cover transition-all"
+							className="h-full w-full cursor-pointer rounded-[3rem] bg-white object-cover transition-all"
 							src={item}
 						/>
 					) : undefined}

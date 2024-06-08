@@ -11,7 +11,7 @@ const { visibility = 70, title, id, image }: Props = Astro.props
 ---
 
 <div
-	class="relative size-56 overflow-hidden rounded-[41px] bg-customOrange-500"
+	class="relative size-56 overflow-hidden rounded-[41px] bg-white"
 	style="box-shadow: rgba(0, 0, 0, .4) -15px 15px 30px 10px;"
 >
 	<div
@@ -34,7 +34,7 @@ const { visibility = 70, title, id, image }: Props = Astro.props
 	<Image
 		width={224}
 		height={224}
-		className="size-56 bg-customOrange-500  object-cover "
+		className="size-56 bg-white  object-cover "
 		src={`${image}`}
 		client:load
 	/>

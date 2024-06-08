@@ -1,7 +1,7 @@
-import { defineConfig } from 'astro/config';
-import vercel from "@astrojs/vercel/serverless";
 import db from "@astrojs/db";
 import tailwind from "@astrojs/tailwind";
+import vercel from "@astrojs/vercel/serverless";
+import { defineConfig } from 'astro/config';
 
 import react from "@astrojs/react";
 
@@ -18,5 +18,6 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ["oslo"]
     }
-  }
+  },
+  
 });

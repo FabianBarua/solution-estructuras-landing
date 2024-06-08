@@ -22,19 +22,21 @@ export const Redes = () => {
 		<>
 			{redes.map((red, index) => {
 				return (
-					<Skeleton
-						key={`redes-${red?.id || index}`}
-						isLoaded={isLoaded}
-						className=" size-8  rounded-full"
-					>
-						<a
-							href={red.url}
-							target="_blank"
-							className="flex size-8 items-center justify-center rounded-full bg-customOrange-500"
+					<a href={red?.url} className="flex items-center gap-2">
+						<Skeleton
+							key={`redes-${red?.id || index}`}
+							isLoaded={isLoaded}
+							className=" size-8  rounded-full"
 						>
-							<img src={red.icon} alt={red.name} className="h-6 w-6" />
-						</a>
-					</Skeleton>
+							<p
+								target="_blank"
+								className="flex size-8 items-center justify-center rounded-full bg-customOrange-500"
+							>
+								<img src={red.icon} alt={red.name} className="h-6 w-6" />
+							</p>
+						</Skeleton>
+						<p>{red?.name}</p>
+					</a>
 				)
 			})}
 		</>

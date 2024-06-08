@@ -1,12 +1,13 @@
 ---
 import Contact from "@components/Contact.astro"
 import Logo from "@components/Logo.astro"
-import { FooterCategories } from "@react/FooterCategories"
-import { Redes } from "@react/Redes"
+import { Redes } from "./react/Redes"
+// import { FooterCategories } from "@react/FooterCategories"
+// import { Redes } from "@react/Redes"
 ---
 
 <Contact />
-
+<!-- 
 <footer class="mx-auto my-16 flex max-w-5xl flex-col gap-5 px-6 text-white sm:flex-row">
 	<div>
 		<a href="/"> <Logo /></a>
@@ -34,5 +35,62 @@ import { Redes } from "@react/Redes"
 				<li><a href="#contacto">Contacto</a></li>
 			</ul>
 		</article>
+	</div>
+</footer> -->
+
+<footer
+	class="flex flex-col items-center justify-center gap-4 p-2 py-10 text-white sm:flex-row sm:items-start sm:gap-16"
+>
+	<a href="/" class="mb-5 flex w-64 justify-center sm:mb-0"> <Logo /></a>
+	<div class="w-full sm:w-64">
+		<h2 class="font-bold">Contacto</h2>
+		<p class="mt-5 leading-5">
+			Nuestro servicio de atención al cliente está disponible en horario comercial:
+		</p>
+		<p class="mt-5">+595 986 740 010</p>
+		<p>Lunes a Viernes:</p>
+		<p>08:00 a 12:00 y 14:00 a 18:00</p>
+		<p>Sábados y Domingos: Cerrado</p>
+	</div>
+	<div class="w-full sm:w-64">
+		<h2 class="font-bold">Donde Estamos</h2>
+		<p class="mt-5 leading-5">KM 5 - Ciudad del Este - Paraguay</p>
+		<div class="mt-5">
+			<style>
+				/*! elementor - v3.21.0 - 26-05-2024 */
+				.elementor-widget-google_maps .elementor-widget-container {
+					overflow: hidden;
+				}
+				.elementor-widget-google_maps .elementor-custom-embed {
+					line-height: 0;
+				}
+				.elementor-widget-google_maps iframe {
+					height: 300px;
+				}
+			</style>
+			<div class="mx-auto w-64 overflow-hidden rounded-xl sm:mx-0">
+				<iframe
+					loading="lazy"
+					src="https://maps.google.com/maps?q=Solution%20Agro%20Import%20Export%20S.A&t=m&z=12&output=embed&iwloc=near"
+					title="Solution Agro Import Export S.A"
+					aria-label="Solution Agro Import Export S.A"
+					data-rocket-lazyload="fitvidscompatible"
+					data-lazy-src="https://maps.google.com/maps?q=Solution%20Agro%20Import%20Export%20S.A&t=m&z=12&output=embed&iwloc=near"
+					data-ll-status="loaded"
+					class="entered lazyloaded"></iframe><noscript
+					><iframe
+						loading="lazy"
+						src="https://maps.google.com/maps?q=Solution%20Agro%20Import%20Export%20S.A&t=m&z=12&output=embed&iwloc=near"
+						title="Solution Agro Import Export S.A"
+						aria-label="Solution Agro Import Export S.A"></iframe></noscript
+				>
+			</div>
+		</div>
+	</div>
+	<div class="w-full sm:w-64">
+		<h2 class="mb-5 font-bold">Nuestras Redes</h2>
+		<ul class="flex flex-col gap-2">
+			<Redes transition:persist client:load />
+		</ul>
 	</div>
 </footer>
